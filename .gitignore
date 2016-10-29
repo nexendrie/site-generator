@@ -1,0 +1,6 @@
+/vendor/
+/tests/_temp/
+output/
+*.actual
+coverage.*
+/cs-ruleset.xml
