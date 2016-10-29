@@ -1,4 +1,2 @@
 application:
     scanDirs: false
-services:
-    generator: Nexendrie\SiteGenerator\Generator
