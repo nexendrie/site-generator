@@ -57,6 +57,17 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::true(file_exists($this->generator->output . "/index.html"));
     $this->cleanSources();
   }
+  
+  function testGenerateWithCustomFolders() {
+    $source = realpath(dirname(\findVendorDirectory()) . "/tests/sources");
+    $output = realpath(dirname(\findVendorDirectory()) . "/public");
+    $this->generator->source = $source;
+    Assert::same($source, $this->generator->source);
+    $this->generator->output = $output;
+    Assert::same($output, $this->generator->output);
+    $this->generator->generate();
+    Assert::true(file_exists($this->generator->output . "/index.html"));
+  }
 }
 
 $test = new GeneratorTest;

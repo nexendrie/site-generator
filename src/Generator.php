@@ -21,10 +21,16 @@ class Generator {
   /** @var string */
   protected $output;
   
-  function __construct() {
-    $this->source = realpath(\findVendorDirectory() . "/../");
-    @mkdir(\findVendorDirectory() . "/../public/", 0777, true);
-    $this->output = realpath(\findVendorDirectory() . "/../public/");
+  function __construct($source = NULL, $output = NULL) {
+    if(is_null($source)) {
+      $source = realpath(\findVendorDirectory() . "/../");
+    }
+    $this->setSource($source);
+    if(is_null($output)) {
+      $output = realpath(\findVendorDirectory() . "/../public/");
+    }
+    @mkdir($output, 0777, true);
+    $this->setOutput($output);
   }
   
   /**
@@ -35,10 +41,28 @@ class Generator {
   }
   
   /**
+   * @param string $source
+   */
+  function setSource($source) {
+    if(is_string($source) AND is_dir($source)) {
+      $this->source = $source;
+    }
+  }
+  
+  /**
    * @return string
    */
   function getOutput() {
     return $this->output;
+  }
+  
+  /**
+   * @param string $output
+   */
+  function setOutput($output) {
+    if(is_string($output)) {
+      $this->output = $output;
+    }
   }
   
   /**
