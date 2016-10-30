@@ -27,10 +27,10 @@ class Generator {
     }
     $this->setSource($source);
     if(is_null($output)) {
-      $output = realpath(\findVendorDirectory() . "/../public/");
+      $output = \findVendorDirectory() . "/../public/";
     }
     @mkdir($output, 0777, true);
-    $this->setOutput($output);
+    $this->setOutput(realpath($output));
   }
   
   /**
