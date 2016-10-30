@@ -5,11 +5,11 @@
 function findVendorDirectory() {
   $recursionLimit = 10;
   $findVendor = function ($dirName = "vendor/bin", $dir = __DIR__) use (&$findVendor, &$recursionLimit) {
-    if (!$recursionLimit--) {
+    if(!$recursionLimit--) {
       throw new \Exception("Cannot find vendor directory.");
     }
     $found = $dir . "/$dirName";
-    if (is_dir($found) || is_file($found)) {
+    if(is_dir($found) || is_file($found)) {
       return dirname($found);
     }
     return $findVendor($dirName, dirname($dir));
@@ -28,7 +28,8 @@ function rrmdir($dir) {
     $objects = scandir($dir);
     foreach ($objects as $object) {
       if($object != "." && $object != "..") {
-        if(filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+        if(filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object);
+        else unlink($dir."/".$object);
       }
     }
     reset($objects);
