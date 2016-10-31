@@ -66,6 +66,26 @@ class Generator {
   }
   
   /**
+   * @param $filename
+   * @return string
+   */
+  protected function createHtml($filename) {
+    $parser = new GithubMarkdown;
+    $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
+    $source = $parser->parse(file_get_contents($filename));
+    $html = "<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset=\"utf-8\">
+</head>
+<body>
+$source
+</body>
+</html>";
+    return $html;
+  }
+  
+  /**
    * Generate the site
    *
    * @return void
@@ -73,8 +93,6 @@ class Generator {
   function generate() {
     \rrmdir($this->output);
     mkdir($this->output);
-    $parser = new GithubMarkdown;
-    $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     $files = Finder::findFiles("*.md")
       ->exclude("README.md")
       ->from($this->source)
@@ -83,7 +101,7 @@ class Generator {
     foreach($files as $file) {
       $path = dirname($file->getRealPath());
       $path = str_replace($this->source, "", $path);
-      $html = $parser->parse(file_get_contents($file->getRealPath()));
+      $html = $this->createHtml($file->getRealPath());
       @mkdir("$this->output$path", 0777, true);
       file_put_contents("$this->output$path/{$file->getBasename(".md")}.html", $html);
       echo "Created $path/{$file->getBasename(".md")}.html\n";
