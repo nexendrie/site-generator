@@ -4,6 +4,7 @@ stages:
   - build
   - analyze
   - test
+  - deploy
 
 build:
   stage: build
@@ -60,3 +61,16 @@ test:cc:
     name: "Code coverage"
     paths:
     - coverage.html
+
+pages:
+  stage: deploy
+  environment: pages
+  dependencies:
+  - build
+  script:
+  - php generate_site.php
+  artifacts:
+      paths:
+      - public
+  only:
+  - master@nexendrie/site-generator
