@@ -52,7 +52,10 @@ class GeneratorTest extends \Tester\TestCase {
   function testGenerate() {
     $this->prepareSources();
     $this->generator->generate();
-    Assert::true(file_exists($this->generator->output . "/index.html"));
+    $filename = $this->generator->output . "/index.html";
+    Assert::true(file_exists($filename));
+    $index = file_get_contents($filename);
+    Assert::contains("<h1>Index</h1>", $index);
     $this->cleanSources();
   }
   
@@ -64,7 +67,10 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->output = $output;
     Assert::same($output, $this->generator->output);
     $this->generator->generate();
-    Assert::true(file_exists($this->generator->output . "/index.html"));
+    $filename = $this->generator->output . "/index.html";
+    Assert::true(file_exists($filename));
+    $index = file_get_contents($filename);
+    Assert::contains("<h1>Index</h1>", $index);
   }
 }
 
