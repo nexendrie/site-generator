@@ -8,11 +8,13 @@ require __DIR__ . "/../../bootstrap.php";
 
 
 class GeneratorTest extends \Tester\TestCase {
+  use \Testbench\TCompiledContainer;
+  
   /** @var Generator */
   protected $generator;
   
   function setUp() {
-    $this->generator = new Generator;
+    $this->generator = $this->getService(Generator::class);
   }
   
   function testGetSource() {
