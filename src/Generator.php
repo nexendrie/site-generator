@@ -4,7 +4,8 @@ namespace Nexendrie\SiteGenerator;
 require_once(__DIR__ . "/functions.php");
 
 use cebe\markdown\GithubMarkdown,
-    Nette\Utils\Finder;
+    Nette\Utils\Finder,
+    Nette\Neon\Neon;
 
 /**
  * Generator
@@ -66,16 +67,37 @@ class Generator {
   }
   
   /**
-   * @param $filename
+   * @param string $filename
+   * @return array
+   */
+  protected function getMeta($filename) {
+    $metaFilename = str_replace(".md", ".neon", $filename);
+    if(file_exists($metaFilename)) {
+      $meta = Neon::decode(file_get_contents($metaFilename));
+    } else {
+      $meta = [];
+    }
+    return $meta;
+  }
+  
+  /**
+   * @param string $filename
    * @return string
    */
   protected function createHtml($filename) {
     $parser = new GithubMarkdown;
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     $source = $parser->parse(file_get_contents($filename));
+    $meta = $this->getMeta($filename);
+    if(isset($meta["title"])) {
+      $title = "<title>{$meta["title"]}</title>";
+    } else {
+      $title = "";
+    }
     $html = "<!DOCTYPE HTML>
 <html>
 <head>
+  $title
   <meta charset=\"utf-8\">
 </head>
 <body>
