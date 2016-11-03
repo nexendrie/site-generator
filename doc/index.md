@@ -18,12 +18,16 @@ The best way to install it is via Composer. Just add nexendrie/site-generator to
 Usage
 =====
 
-Just run **./vendor/bin/generate-site**. The script will go through all .md files in your project's root folder (and all its subfolders) and create html pages from them and place them under public folder.
+Just run **./vendor/bin/generate-site**. The script will go through all .md files in your project's root folder (and all its subfolders) and create html pages from them and place them under public folder. Both sources and output folders can be changed:
+
+```
+./vendor/bin/generate-site --source=doc --output=public
+```
 
 Alternative usage
 =================
 
-Alternatively, you can write your own script and specify another folders for sources and output. Example:
+Alternatively, you can write your own script. Example:
 
 ```php
 <?php

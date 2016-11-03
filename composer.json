@@ -21,7 +21,8 @@
     "require": {
         "cebe/markdown": "^1.1",
         "nette/finder": "^2.4",
-        "nette/neon": "^2.4"
+        "nette/neon": "^2.4",
+        "nette/command-line": "^1.1"
     },
     "require-dev": {
         "nette/tester": "2.0.x-dev as v1.7",

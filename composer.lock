@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c0b49dcdc11cd3e94a482c7bd7ea1063",
-    "content-hash": "6f62575e8992decc68d2cc38a4b67a6e",
+    "hash": "62ad7721372fa91ed329d5b1b7fcca3d",
+    "content-hash": "9b0ce70e3e0933e3ad62edd8f24babdc",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -66,6 +66,53 @@
                 "markdown-extra"
             ],
             "time": "2016-09-14 20:40:20"
+        },
+        {
+            "name": "nette/command-line",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/command-line.git",
+                "reference": "6ed25a71f5af6ba32eaec7d9d3c7b6f0b8781b87"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/command-line/zipball/6ed25a71f5af6ba32eaec7d9d3c7b6f0b8781b87",
+                "reference": "6ed25a71f5af6ba32eaec7d9d3c7b6f0b8781b87",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.4"
+            },
+            "require-dev": {
+                "nette/tester": "~2.0",
+                "tracy/tracy": "^2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "Nette Command Line Tools",
+            "homepage": "https://nette.org",
+            "time": "2016-06-17 17:24:32"
         },
         {
             "name": "nette/finder",

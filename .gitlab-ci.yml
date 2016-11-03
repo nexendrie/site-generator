@@ -68,7 +68,7 @@ pages:
   dependencies:
   - build
   script:
-  - php generate_site.php
+  - ./src/generate-site --source=doc --output=public
   artifacts:
       paths:
       - public
