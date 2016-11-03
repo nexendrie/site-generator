@@ -1,5 +1,6 @@
 <?php
-use Nette\CommandLine\Parser;
+use Nette\CommandLine\Parser,
+    Nexendrie\SiteGenerator\Generator;
 
 require_once __DIR__ . "/functions.php";
 require findVendorDirectory() . "/autoload.php";
@@ -10,6 +11,6 @@ $cmd = new Parser("", [
 ]);
 $options = $cmd->parse();
 
-$generator = new Nexendrie\SiteGenerator\Generator($options["--source"], $options["--output"]);
+$generator = new Generator($options["--source"], $options["--output"]);
 $generator->generate();
 ?>
