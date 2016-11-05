@@ -34,7 +34,7 @@ Alternatively, you can write your own script. Example:
 require __DIR__ . "/vendor/autoload.php";
 
 $source = "./sources";
-$output = "./doc";
+$output = "./docs";
 $generator = new Nexendrie\SiteGenerator\Generator($source, $output);
 $generator->generate();
 ?>

@@ -70,7 +70,7 @@ pages:
   before_script:
   - mkdir public
   script:
-  - ./src/generate-site --source=doc --output=public
+  - ./src/generate-site --source=docs --output=public
   artifacts:
       paths:
       - public
