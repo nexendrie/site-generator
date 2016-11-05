@@ -5,7 +5,7 @@
         "static", "site", "website", "generator", "markdown", "html"
     ],
     "license": "BSD-3-Clause",
-    "homepage": "https://nexendrie.gitlab.io/site-generator",
+    "homepage": "https://nexendrie.gitlab.io",
     "authors": [
         {
             "name": "Jakub Konečný",
