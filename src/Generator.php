@@ -125,7 +125,8 @@ $source
       $path = str_replace($this->source, "", $path);
       $html = $this->createHtml($file->getRealPath());
       @mkdir("$this->output$path", 0777, true);
-      file_put_contents("$this->output$path/{$file->getBasename(".md")}.html", $html);
+      $filename = "$this->output$path/{$file->getBasename(".md")}.html";
+      file_put_contents($filename, $html);
       echo "Created $path/{$file->getBasename(".md")}.html\n";
     }
   }
