@@ -75,7 +75,9 @@ class Generator {
     if(file_exists($metaFilename)) {
       $meta = Neon::decode(file_get_contents($metaFilename));
     } else {
-      $meta = [];
+      $meta = [
+        "title" => ""
+      ];
     }
     return $meta;
   }
@@ -89,15 +91,10 @@ class Generator {
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     $source = $parser->parse(file_get_contents($filename));
     $meta = $this->getMeta($filename);
-    if(isset($meta["title"])) {
-      $title = "<title>{$meta["title"]}</title>";
-    } else {
-      $title = "";
-    }
     $html = "<!DOCTYPE HTML>
 <html>
 <head>
-  $title
+  <title>{$meta["title"]}</title>
   <meta charset=\"utf-8\">
 </head>
 <body>
