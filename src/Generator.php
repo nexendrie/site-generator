@@ -115,7 +115,7 @@ $source
     $files = Finder::findFiles("*.md")
       ->exclude("README.md")
       ->from($this->source)
-      ->exclude("vendor", ".git", "tests", "public");
+      ->exclude("vendor", ".git", "tests");
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $path = dirname($file->getRealPath());
