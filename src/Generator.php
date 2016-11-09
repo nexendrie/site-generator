@@ -91,16 +91,11 @@ class Generator {
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     $source = $parser->parse(file_get_contents($filename));
     $meta = $this->getMeta($filename);
-    $html = "<!DOCTYPE HTML>
-<html>
-<head>
-  <title>{$meta["title"]}</title>
-  <meta charset=\"utf-8\">
-</head>
-<body>
-$source
-</body>
-</html>";
+    $html = file_get_contents(__DIR__ . "/template.html");
+    $meta["source"] = $source;
+    foreach($meta as $key => $value) {
+      $html = str_replace("%%$key%%", $value, $html);
+    }
     return $html;
   }
   
