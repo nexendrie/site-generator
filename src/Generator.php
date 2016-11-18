@@ -116,9 +116,8 @@ class Generator {
       $path = dirname($file->getRealPath());
       $path = str_replace($this->source, "", $path);
       $html = $this->createHtml($file->getRealPath());
-      FileSystem::createDir("$this->output$path");
       $filename = "$this->output$path/{$file->getBasename(".md")}.html";
-      file_put_contents($filename, $html);
+      FileSystem::write($filename, $html);
       echo "Created $path/{$file->getBasename(".md")}.html\n";
     }
   }
