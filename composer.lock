@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f9865b584bbf5f660f93e92215e17848",
-    "content-hash": "1a85a75d69b2ab732ced035d2a050acf",
+    "hash": "7d45c3a42161b875f776c4adf46d3ed7",
+    "content-hash": "cb4ee46a7321a02af5b85be0ca5c8b9b",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -471,16 +471,16 @@
         },
         {
             "name": "mrtnzlml/testbench",
-            "version": "v2.4",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrtnzlml/testbench.git",
-                "reference": "f62bcca0130a612421ba82486eeca0da761a0aaf"
+                "reference": "7362fe750b2cc8f7fe4ced6222f21d55511edf2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrtnzlml/testbench/zipball/f62bcca0130a612421ba82486eeca0da761a0aaf",
-                "reference": "f62bcca0130a612421ba82486eeca0da761a0aaf",
+                "url": "https://api.github.com/repos/mrtnzlml/testbench/zipball/7362fe750b2cc8f7fe4ced6222f21d55511edf2f",
+                "reference": "7362fe750b2cc8f7fe4ced6222f21d55511edf2f",
                 "shasum": ""
             },
             "require": {
@@ -540,7 +540,7 @@
                 }
             ],
             "description": "Simple integration testing tool for Nette Framework applications",
-            "time": "2016-10-12 15:56:17"
+            "time": "2016-11-07 08:58:13"
         },
         {
             "name": "nette/application",
@@ -808,16 +808,16 @@
         },
         {
             "name": "nette/di",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/di.git",
-                "reference": "aa40af0766b990fbe052d6efe89382d6df2ae641"
+                "reference": "54dbce99e3355e201607874bdbcde8a0b8a1e98e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/di/zipball/aa40af0766b990fbe052d6efe89382d6df2ae641",
-                "reference": "aa40af0766b990fbe052d6efe89382d6df2ae641",
+                "url": "https://api.github.com/repos/nette/di/zipball/54dbce99e3355e201607874bdbcde8a0b8a1e98e",
+                "reference": "54dbce99e3355e201607874bdbcde8a0b8a1e98e",
                 "shasum": ""
             },
             "require": {
@@ -864,7 +864,7 @@
             ],
             "description": "Nette Dependency Injection Component",
             "homepage": "https://nette.org",
-            "time": "2016-09-21 16:51:11"
+            "time": "2016-10-26 16:05:47"
         },
         {
             "name": "nette/http",
@@ -1216,12 +1216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/code-quality.git",
-                "reference": "494f1c74b3e778e7752c32c0bb85d132c88bb942"
+                "reference": "35156b828f17cc626cfc4d9cc41b773c5b429bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/494f1c74b3e778e7752c32c0bb85d132c88bb942",
-                "reference": "494f1c74b3e778e7752c32c0bb85d132c88bb942",
+                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/35156b828f17cc626cfc4d9cc41b773c5b429bda",
+                "reference": "35156b828f17cc626cfc4d9cc41b773c5b429bda",
                 "shasum": ""
             },
             "require": {
@@ -1245,7 +1245,12 @@
             ],
             "description": "Code quality tools for Nexendrie project",
             "homepage": "https://nexendrie.gitlab.io",
-            "time": "2016-11-05 11:54:30"
+            "keywords": [
+                "code",
+                "quality",
+                "testing"
+            ],
+            "time": "2016-11-05 13:04:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

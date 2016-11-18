@@ -5,7 +5,8 @@ require_once(__DIR__ . "/functions.php");
 
 use cebe\markdown\GithubMarkdown,
     Nette\Utils\Finder,
-    Nette\Neon\Neon;
+    Nette\Neon\Neon,
+    Nette\Utils\FileSystem;
 
 /**
  * Generator
@@ -30,7 +31,7 @@ class Generator {
     if(is_null($output)) {
       $output = \findVendorDirectory() . "/../public/";
     }
-    @mkdir($output, 0777, true);
+    FileSystem::createDir($output);
     $this->setOutput($output);
   }
   
@@ -105,8 +106,7 @@ class Generator {
    * @return void
    */
   function generate() {
-    \rrmdir($this->output);
-    mkdir($this->output);
+    FileSystem::delete($this->output);
     $files = Finder::findFiles("*.md")
       ->exclude("README.md")
       ->from($this->source)
@@ -116,7 +116,7 @@ class Generator {
       $path = dirname($file->getRealPath());
       $path = str_replace($this->source, "", $path);
       $html = $this->createHtml($file->getRealPath());
-      @mkdir("$this->output$path", 0777, true);
+      FileSystem::createDir("$this->output$path");
       $filename = "$this->output$path/{$file->getBasename(".md")}.html";
       file_put_contents($filename, $html);
       echo "Created $path/{$file->getBasename(".md")}.html\n";
