@@ -19,6 +19,7 @@
         "docs": "https://nexendrie.gitlab.io/site-generator"
     },
     "require": {
+        "php": ">=5.6.0",
         "cebe/markdown": "^1.1",
         "nette/finder": "^2.4",
         "nette/neon": "^2.4",
