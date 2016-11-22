@@ -7,7 +7,7 @@ require findVendorDirectory() . "/autoload.php";
 
 $cmd = new Parser("", [
   "--source" => [Parser::REALPATH => true, Parser::VALUE => NULL, Parser::ARGUMENT => true],
-  "--output" => [Parser::REALPATH => true, Parser::VALUE => NULL, Parser::ARGUMENT => true],
+  "--output" => [Parser::VALUE => NULL, Parser::ARGUMENT => true],
 ]);
 $options = $cmd->parse();
 
