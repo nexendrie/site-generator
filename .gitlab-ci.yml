@@ -32,6 +32,14 @@ analyze:cs:
   script:
   - ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors
 
+analyze:phpstan:
+  image: shipito/php:7.0
+
+  stage: analyze
+
+  script:
+  - ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests
+
 .job_template: &test_job
   stage: test
 
