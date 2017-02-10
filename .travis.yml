@@ -1,7 +1,6 @@
 language: php
 
 php:
-    - 5.6
     - 7.0
     - 7.1
 
@@ -24,12 +23,12 @@ before_install:
     - composer self-update
 
 install:
-    - composer install --no-interaction --prefer-source --ignore-platform-reqs
+    - composer install --no-interaction --prefer-source
   
 script:
-    - ./vendor/bin/parallel-lint src tests -e php,phpt
-    - ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors
-    - if [ "$TRAVIS_PHP_VERSION" != "5.6" ]; then ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests; fi
+    - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/parallel-lint src tests -e php,phpt; fi
+    - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors; fi
+    - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests; fi
     - ./vendor/bin/run-tests -p $TESTER_PHP_BIN tests -s $coverage
 
 after_script:
