@@ -25,7 +25,7 @@ class Generator {
   /** @var string */
   protected $output;
   
-  function __construct($source = NULL, $output = NULL) {
+  function __construct(string $source = NULL, string $output = NULL) {
     if(is_null($source)) {
       $source = \findVendorDirectory() . "/../";
     }
@@ -40,14 +40,14 @@ class Generator {
   /**
    * @return string
    */
-  function getSource() {
+  function getSource(): string {
     return $this->source;
   }
   
   /**
    * @param string $source
    */
-  function setSource($source) {
+  function setSource(string $source) {
     if(is_string($source) AND is_dir($source)) {
       $this->source = realpath($source);
     }
@@ -56,14 +56,14 @@ class Generator {
   /**
    * @return string
    */
-  function getOutput() {
+  function getOutput(): string {
     return $this->output;
   }
   
   /**
    * @param string $output
    */
-  function setOutput($output) {
+  function setOutput(string $output) {
     if(is_string($output)) {
       $this->output = realpath($output);
     }
@@ -73,7 +73,7 @@ class Generator {
    * @param string $filename
    * @return array
    */
-  protected function getMeta($filename) {
+  protected function getMeta(string $filename): array {
     $metaFilename = str_replace(".md", ".neon", $filename);
     if(file_exists($metaFilename)) {
       $meta = Neon::decode(file_get_contents($metaFilename));
@@ -89,7 +89,7 @@ class Generator {
    * @param string $filename
    * @return string
    */
-  protected function createHtml($filename) {
+  protected function createHtml(string $filename): string {
     $parser = new GithubMarkdown;
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     $source = $parser->parse(file_get_contents($filename));

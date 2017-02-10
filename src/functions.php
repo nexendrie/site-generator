@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * @return string
  */
-function findVendorDirectory() {
+function findVendorDirectory(): string {
   $recursionLimit = 10;
   $findVendor = function ($dirName = "vendor/bin", $dir = __DIR__) use (&$findVendor, &$recursionLimit) {
     if(!$recursionLimit--) {
