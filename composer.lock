@@ -1282,12 +1282,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/code-quality.git",
-                "reference": "b1e2c01871b59a5160496268f7fef5cb6aa47368"
+                "reference": "d30fa7509bb638979aeee02fbae4c5fb5b442c46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/b1e2c01871b59a5160496268f7fef5cb6aa47368",
-                "reference": "b1e2c01871b59a5160496268f7fef5cb6aa47368",
+                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/d30fa7509bb638979aeee02fbae4c5fb5b442c46",
+                "reference": "d30fa7509bb638979aeee02fbae4c5fb5b442c46",
                 "shasum": ""
             },
             "require": {
@@ -1317,7 +1317,7 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-02-10 08:08:28"
+            "time": "2017-02-10T14:23:03+00:00"
         },
         {
             "name": "nikic/php-parser",
