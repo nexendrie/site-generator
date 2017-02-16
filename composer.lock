@@ -1282,12 +1282,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/code-quality.git",
-                "reference": "d30fa7509bb638979aeee02fbae4c5fb5b442c46"
+                "reference": "1623cf3ab64b272ba4460dc0d6ea02f3fd29cb55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/d30fa7509bb638979aeee02fbae4c5fb5b442c46",
-                "reference": "d30fa7509bb638979aeee02fbae4c5fb5b442c46",
+                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/1623cf3ab64b272ba4460dc0d6ea02f3fd29cb55",
+                "reference": "1623cf3ab64b272ba4460dc0d6ea02f3fd29cb55",
                 "shasum": ""
             },
             "require": {
@@ -1317,20 +1317,20 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-02-10T14:23:03+00:00"
+            "time": "2017-02-16T11:37:21+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "5b8182cc0abb4b0ff290ba9df6c0e1323286013a"
+                "reference": "0bf561dfe75ba80441c22adecc0529056671a7d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/5b8182cc0abb4b0ff290ba9df6c0e1323286013a",
-                "reference": "5b8182cc0abb4b0ff290ba9df6c0e1323286013a",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/0bf561dfe75ba80441c22adecc0529056671a7d2",
+                "reference": "0bf561dfe75ba80441c22adecc0529056671a7d2",
                 "shasum": ""
             },
             "require": {
@@ -1368,7 +1368,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2017-02-03T21:57:31+00:00"
+            "time": "2017-02-10T20:20:03+00:00"
         },
         {
             "name": "phpstan/phpstan",
