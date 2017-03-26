@@ -59,8 +59,7 @@ class GeneratorTest extends \Tester\TestCase {
     $filename = $this->generator->output . "/index.html";
     Assert::true(file_exists($filename));
     $index = file_get_contents($filename);
-    Assert::contains("<h1>Index</h1>", $index);
-    Assert::notContains("<title>Index</title>", $index);
+    Assert::matchFile(__DIR__ . "/pageExpectedNoTitle.html", $index);
     $this->cleanSources();
   }
   
@@ -75,8 +74,7 @@ class GeneratorTest extends \Tester\TestCase {
     $filename = $this->generator->output . "/index.html";
     Assert::true(file_exists($filename));
     $index = file_get_contents($filename);
-    Assert::contains("<h1>Index</h1>", $index);
-    Assert::contains("<title>Index</title>", $index);
+    Assert::matchFile(__DIR__ . "/pageExpected.html", $index);
   }
 }
 
