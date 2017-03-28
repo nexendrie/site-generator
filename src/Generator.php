@@ -98,6 +98,11 @@ class Generator {
     if(substr($source, -1) === PHP_EOL) {
       $source = substr($source, 0, -1);
     }
+    if(strlen($meta["title"]) === 0) {
+      unset($meta["title"]);
+      $html = str_replace("
+  <title>%%title%%</title>", "", $html);
+    }
     $meta["source"] = $source;
     foreach($meta as $key => $value) {
       $html = str_replace("%%$key%%", $value, $html);
