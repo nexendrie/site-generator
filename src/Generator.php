@@ -95,6 +95,9 @@ class Generator {
     $source = $parser->parse(file_get_contents($filename));
     $meta = $this->getMeta($filename);
     $html = file_get_contents(__DIR__ . "/template.html");
+    if(substr($source, -1) === PHP_EOL) {
+      $source = substr($source, 0, -1);
+    }
     $meta["source"] = $source;
     foreach($meta as $key => $value) {
       $html = str_replace("%%$key%%", $value, $html);
