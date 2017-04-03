@@ -1,3 +1,6 @@
+Version 0.2.0+dev
+- raised minimal version of PHP to 7.1
+
 Version 0.2.0
 - raised minimal version of PHP to 7
 - empty line at end of source files is ignored now
