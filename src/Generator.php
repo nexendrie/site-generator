@@ -115,7 +115,7 @@ class Generator {
    *
    * @return void
    */
-  function generate() {
+  function generate(): void {
     FileSystem::delete($this->output);
     $files = Finder::findFiles("*.md")
       ->exclude("README.md")
