@@ -38,6 +38,9 @@
     "bin": [
         "src/generate-site"
     ],
+    "config": {
+        "classmap-authoritative": true
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
