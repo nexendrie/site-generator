@@ -27,11 +27,11 @@ class Generator {
   
   function __construct(string $source = NULL, string $output = NULL) {
     if(is_null($source)) {
-      $source = \findVendorDirectory() . "/../";
+      $source = findVendorDirectory() . "/../";
     }
     $this->setSource($source);
     if(is_null($output)) {
-      $output = \findVendorDirectory() . "/../public/";
+      $output = findVendorDirectory() . "/../public/";
     }
     FileSystem::createDir($output);
     $this->setOutput($output);

@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use Nette\CommandLine\Parser,
-    Nexendrie\SiteGenerator\Generator;
+namespace Nexendrie\SiteGenerator;
+
+use Nette\CommandLine\Parser;
 
 require_once __DIR__ . "/functions.php";
 require findVendorDirectory() . "/autoload.php";

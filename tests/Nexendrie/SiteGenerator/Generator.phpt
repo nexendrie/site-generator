@@ -22,20 +22,20 @@ class GeneratorTest extends \Tester\TestCase {
   function testGetSource() {
     $source = $this->generator->source;
     Assert::type("string", $source);
-    $expected = realpath(dirname(\findVendorDirectory()));
+    $expected = realpath(dirname(findVendorDirectory()));
     Assert::same($expected, $source);
   }
   
   function testGetOutput() {
     $output = $this->generator->output;
     Assert::type("string", $output);
-    $expected = realpath(dirname(\findVendorDirectory()) . "/public");
+    $expected = realpath(dirname(findVendorDirectory()) . "/public");
     Assert::same($expected, $output);
   }
   
   protected function prepareSources() {
     $files = Finder::findFiles("*.md")
-      ->from(dirname(\findVendorDirectory()) . "/tests/sources");
+      ->from(dirname(findVendorDirectory()) . "/tests/sources");
     $source = $this->generator->source;
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
@@ -45,7 +45,7 @@ class GeneratorTest extends \Tester\TestCase {
   
   protected function cleanSources() {
     $files = Finder::findFiles("*.md")
-      ->from(dirname(\findVendorDirectory()) . "/tests/sources");
+      ->from(dirname(findVendorDirectory()) . "/tests/sources");
     $source = $this->generator->source;
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
@@ -64,8 +64,8 @@ class GeneratorTest extends \Tester\TestCase {
   }
   
   function testGenerateWithCustomFolders() {
-    $source = realpath(dirname(\findVendorDirectory()) . "/tests/sources");
-    $output = realpath(dirname(\findVendorDirectory()) . "/public");
+    $source = realpath(dirname(findVendorDirectory()) . "/tests/sources");
+    $output = realpath(dirname(findVendorDirectory()) . "/public");
     $this->generator->source = $source;
     Assert::same($source, $this->generator->source);
     $this->generator->output = $output;
