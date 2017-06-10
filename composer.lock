@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b82dfbf9dcc27708e557f122068e3c2d",
+    "content-hash": "466f6828e5182a2afa2a9f8a69ba7253",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -2197,12 +2197,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
-        "nexendrie/code-quality": 20,
-        "nette/tester": 20
+        "nexendrie/code-quality": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1.0"
