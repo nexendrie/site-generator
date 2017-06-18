@@ -75,12 +75,11 @@ class Generator {
    */
   protected function getMeta(string $filename): array {
     $metaFilename = str_replace(".md", ".neon", $filename);
+    $meta = [
+      "title" => ""
+    ];
     if(file_exists($metaFilename)) {
       $meta = Neon::decode(file_get_contents($metaFilename));
-    } else {
-      $meta = [
-        "title" => ""
-      ];
     }
     return $meta;
   }
