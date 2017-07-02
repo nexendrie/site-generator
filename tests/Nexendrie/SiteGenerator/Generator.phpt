@@ -15,18 +15,18 @@ class GeneratorTest extends \Tester\TestCase {
   /** @var Generator */
   protected $generator;
   
-  function setUp() {
+  protected function setUp() {
     $this->generator = $this->getService(Generator::class);
   }
   
-  function testGetSource() {
+  public function testGetSource() {
     $source = $this->generator->source;
     Assert::type("string", $source);
     $expected = realpath(dirname(findVendorDirectory()));
     Assert::same($expected, $source);
   }
   
-  function testGetOutput() {
+  public function testGetOutput() {
     $output = $this->generator->output;
     Assert::type("string", $output);
     $expected = realpath(dirname(findVendorDirectory()) . "/public");
@@ -53,7 +53,7 @@ class GeneratorTest extends \Tester\TestCase {
     }
   }
   
-  function testGenerate() {
+  public function testGenerate() {
     $this->prepareSources();
     $this->generator->generate();
     $filename = $this->generator->output . "/index.html";
@@ -63,7 +63,7 @@ class GeneratorTest extends \Tester\TestCase {
     $this->cleanSources();
   }
   
-  function testGenerateWithCustomFolders() {
+  public function testGenerateWithCustomFolders() {
     $source = realpath(dirname(findVendorDirectory()) . "/tests/sources");
     $output = realpath(dirname(findVendorDirectory()) . "/public");
     $this->generator->source = $source;

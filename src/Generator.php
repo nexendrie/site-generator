@@ -25,7 +25,7 @@ class Generator {
   /** @var string */
   protected $output;
   
-  function __construct(string $source = NULL, string $output = NULL) {
+  public function __construct(string $source = NULL, string $output = NULL) {
     if(is_null($source)) {
       $source = findVendorDirectory() . "/../";
     }
@@ -40,14 +40,14 @@ class Generator {
   /**
    * @return string
    */
-  function getSource(): string {
+  public function getSource(): string {
     return $this->source;
   }
   
   /**
    * @param string $source
    */
-  function setSource(string $source) {
+  public function setSource(string $source) {
     if(is_string($source) AND is_dir($source)) {
       $this->source = realpath($source);
     }
@@ -56,14 +56,14 @@ class Generator {
   /**
    * @return string
    */
-  function getOutput(): string {
+  public function getOutput(): string {
     return $this->output;
   }
   
   /**
    * @param string $output
    */
-  function setOutput(string $output) {
+  public function setOutput(string $output) {
     if(is_string($output)) {
       $this->output = realpath($output);
     }
@@ -114,7 +114,7 @@ class Generator {
    *
    * @return void
    */
-  function generate(): void {
+  public function generate(): void {
     FileSystem::delete($this->output);
     $files = Finder::findFiles("*.md")
       ->exclude("README.md")
