@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
-/**
- * @return string
- */
 function findVendorDirectory(): string {
   $recursionLimit = 10;
   $findVendor = function ($dirName = "vendor/bin", $dir = __DIR__) use (&$findVendor, &$recursionLimit) {

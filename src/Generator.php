@@ -37,42 +37,26 @@ class Generator {
     $this->setOutput($output);
   }
   
-  /**
-   * @return string
-   */
   public function getSource(): string {
     return $this->source;
   }
   
-  /**
-   * @param string $source
-   */
   public function setSource(string $source) {
     if(is_string($source) AND is_dir($source)) {
       $this->source = realpath($source);
     }
   }
   
-  /**
-   * @return string
-   */
   public function getOutput(): string {
     return $this->output;
   }
   
-  /**
-   * @param string $output
-   */
   public function setOutput(string $output) {
     if(is_string($output)) {
       $this->output = realpath($output);
     }
   }
   
-  /**
-   * @param string $filename
-   * @return array
-   */
   protected function getMeta(string $filename): array {
     $metaFilename = str_replace(".md", ".neon", $filename);
     $meta = [
@@ -84,10 +68,6 @@ class Generator {
     return $meta;
   }
   
-  /**
-   * @param string $filename
-   * @return string
-   */
   protected function createHtml(string $filename): string {
     $parser = new GithubMarkdown;
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
@@ -111,8 +91,6 @@ class Generator {
   
   /**
    * Generate the site
-   *
-   * @return void
    */
   public function generate(): void {
     FileSystem::delete($this->output);
