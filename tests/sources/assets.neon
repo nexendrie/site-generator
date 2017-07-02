@@ -1,0 +1,9 @@
+title: Assets
+styles:
+    - abc.css
+    - style.css
+    - style2.css
+scripts:
+    - abc.js
+    - script.js
+    - script2.js

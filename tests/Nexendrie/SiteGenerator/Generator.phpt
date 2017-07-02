@@ -56,10 +56,15 @@ class GeneratorTest extends \Tester\TestCase {
   public function testGenerate() {
     $this->prepareSources();
     $this->generator->generate();
-    $filename = $this->generator->output . "/index.html";
-    Assert::true(file_exists($filename));
-    $index = file_get_contents($filename);
-    Assert::matchFile(__DIR__ . "/pageExpectedNoTitle.html", $index);
+    $files = [
+      "index.html" => "pageExpectedNoTitle.html",
+    ];
+    foreach($files as $actual => $expected) {
+      $actual = "{$this->generator->output}/$actual";
+      $expected = __DIR__ . "/$expected";
+      Assert::true(file_exists($actual));
+      Assert::matchFile($expected, file_get_contents($actual));
+    }
     $this->cleanSources();
   }
   
@@ -71,10 +76,18 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->output = $output;
     Assert::same($output, $this->generator->output);
     $this->generator->generate();
-    $filename = $this->generator->output . "/index.html";
-    Assert::true(file_exists($filename));
-    $index = file_get_contents($filename);
-    Assert::matchFile(__DIR__ . "/pageExpected.html", $index);
+    $files = [
+      "index.html" => "pageExpected.html",
+      "assets.html" => "pageAssets.html",
+    ];
+    foreach($files as $actual => $expected) {
+      $actual = "{$this->generator->output}/$actual";
+      $expected = __DIR__ . "/$expected";
+      Assert::true(file_exists($actual));
+      Assert::matchFile($expected, file_get_contents($actual));
+    }
+    Assert::true(file_exists("{$this->generator->output}/style.css"));
+    Assert::true(file_exists("{$this->generator->output}/script.js"));
   }
 }
 

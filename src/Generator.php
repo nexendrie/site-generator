@@ -62,14 +62,70 @@ class Generator {
     $resolver = new OptionsResolver;
     $resolver->setDefaults([
       "title" => "",
+      "styles" => [],
+      "scripts" => [],
     ]);
+    $isArrayOfStrings = function(array $value) {
+      foreach($value as $item) {
+        if(!is_string($item)) {
+          return false;
+        }
+      }
+      return true;
+    };
     $resolver->setAllowedTypes("title", "string");
+    $resolver->setAllowedTypes("styles", "array");
+    $resolver->setAllowedValues("styles", $isArrayOfStrings);
+    $resolver->setAllowedTypes("scripts", "array");
+    $resolver->setAllowedValues("scripts", $isArrayOfStrings);
     $metaFilename = str_replace(".md", ".neon", $filename);
     $meta = [];
     if(file_exists($metaFilename)) {
       $meta = Neon::decode(file_get_contents($metaFilename));
     }
     return $resolver->resolve($meta);
+  }
+  
+  protected function processAssets(array &$meta, string &$html, string $basePath): void {
+    foreach($meta["styles"] as $index => $style) {
+      if(!file_exists("$basePath/$style")) {
+        unset($meta["styles"][$index]);
+        continue;
+      }
+    }
+    foreach($meta["scripts"] as $index => $script) {
+      if(!file_exists("$basePath/$script")) {
+        unset($meta["scripts"][$index]);
+        continue;
+      }
+    }
+    if(!count($meta["styles"])) {
+      $html = str_replace("
+  %%styles%%", "", $html);
+    }
+    if(!count($meta["scripts"])) {
+      $html = str_replace("
+  %%scripts%%", "", $html);
+    }
+    if(!count($meta["styles"]) AND !count($meta["scripts"])) {
+      unset($meta["styles"]);
+      unset($meta["scripts"]);
+      return;
+    }
+    $assets = array_merge($meta["styles"], $meta["scripts"]);
+    foreach($assets as $asset) {
+      $path = str_replace($this->source, "", realpath($asset));
+      $target = "$this->output$path/$asset";
+      FileSystem::copy("$basePath/$asset", $target);
+    }
+    foreach($meta["styles"] as $index => $style) {
+      $meta["styles"][$index] = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$style\">";
+    }
+    foreach($meta["scripts"] as $index => $script) {
+      $meta["scripts"][$index] = "<script type=\"text/javascript\" src=\"$script\"></script>";
+    }
+    $meta["styles"] = implode("\n  ", $meta["styles"]);
+    $meta["scripts"] = implode("\n  ", $meta["scripts"]);
   }
   
   protected function createHtml(string $filename): string {
@@ -86,6 +142,7 @@ class Generator {
       $html = str_replace("
   <title>%%title%%</title>", "", $html);
     }
+    $this->processAssets($meta, $html, dirname($filename));
     $meta["source"] = $source;
     foreach($meta as $key => $value) {
       $html = str_replace("%%$key%%", $value, $html);

@@ -48,3 +48,15 @@ Site generator with every source file also looks for a meta file (file with same
 ```
 title: My page
 ```
+
+Additional assets
+=================
+
+If your page needs additional assets (CSS stylesheets, JavaScript), just list them in the page's meta file and they will be copied to the output folder and the generated page will include them.
+
+```yaml
+styles:
+    - style.css
+scripts:
+    - script.js
+```
