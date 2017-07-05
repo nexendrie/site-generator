@@ -8,7 +8,8 @@ require_once(__DIR__ . "/functions.php");
 use cebe\markdown\GithubMarkdown,
     Nette\Utils\Finder,
     Nette\Neon\Neon,
-    Nette\Utils\FileSystem;
+    Nette\Utils\FileSystem,
+    Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Generator
@@ -58,14 +59,17 @@ class Generator {
   }
   
   protected function getMeta(string $filename): array {
+    $resolver = new OptionsResolver;
+    $resolver->setDefaults([
+      "title" => "",
+    ]);
+    $resolver->setAllowedTypes("title", "string");
     $metaFilename = str_replace(".md", ".neon", $filename);
-    $meta = [
-      "title" => ""
-    ];
+    $meta = [];
     if(file_exists($metaFilename)) {
       $meta = Neon::decode(file_get_contents($metaFilename));
     }
-    return $meta;
+    return $resolver->resolve($meta);
   }
   
   protected function createHtml(string $filename): string {
