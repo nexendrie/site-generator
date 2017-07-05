@@ -9,7 +9,8 @@ use cebe\markdown\GithubMarkdown,
     Nette\Utils\Finder,
     Nette\Neon\Neon,
     Nette\Utils\FileSystem,
-    Symfony\Component\OptionsResolver\OptionsResolver;
+    Symfony\Component\OptionsResolver\OptionsResolver,
+    Nette\Utils\Arrays;
 
 /**
  * Generator
@@ -100,19 +101,19 @@ class Generator {
       }
     }
     if(!count($meta["styles"])) {
+      unset($meta["styles"]);
       $html = str_replace("
   %%styles%%", "", $html);
     }
     if(!count($meta["scripts"])) {
+      unset($meta["scripts"]);
       $html = str_replace("
   %%scripts%%", "", $html);
     }
-    if(!count($meta["styles"]) AND !count($meta["scripts"])) {
-      unset($meta["styles"]);
-      unset($meta["scripts"]);
+    if(!isset($meta["styles"]) AND !isset($meta["scripts"])) {
       return;
     }
-    $assets = array_merge($meta["styles"], $meta["scripts"]);
+    $assets = array_merge(Arrays::get($meta, "styles", []), Arrays::get($meta, "scripts", []));
     foreach($assets as $asset) {
       $path = str_replace($this->source, "", realpath($asset));
       $target = "$this->output$path/$asset";
