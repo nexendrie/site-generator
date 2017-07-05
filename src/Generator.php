@@ -9,8 +9,7 @@ use cebe\markdown\GithubMarkdown,
     Nette\Utils\Finder,
     Nette\Neon\Neon,
     Nette\Utils\FileSystem,
-    Symfony\Component\OptionsResolver\OptionsResolver,
-    Nette\Utils\Arrays;
+    Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Generator
@@ -26,6 +25,8 @@ class Generator {
   protected $source;
   /** @var string */
   protected $output;
+  /** @var string[] */
+  protected $assets = [];
   
   public function __construct(string $source = NULL, string $output = NULL) {
     if(is_null($source)) {
@@ -87,6 +88,12 @@ class Generator {
     return $resolver->resolve($meta);
   }
   
+  protected function addAsset(string $asset): void {
+    if(!in_array($asset, $this->assets)) {
+      $this->assets[] = realpath($asset);
+    }
+  }
+  
   protected function processAssets(array &$meta, string &$html, string $basePath): void {
     foreach($meta["styles"] as $index => $style) {
       if(!file_exists("$basePath/$style")) {
@@ -113,20 +120,20 @@ class Generator {
     if(!isset($meta["styles"]) AND !isset($meta["scripts"])) {
       return;
     }
-    $assets = array_merge(Arrays::get($meta, "styles", []), Arrays::get($meta, "scripts", []));
-    foreach($assets as $asset) {
-      $path = str_replace($this->source, "", realpath($asset));
-      $target = "$this->output$path/$asset";
-      FileSystem::copy("$basePath/$asset", $target);
+    if(isset($meta["styles"])) {
+      foreach($meta["styles"] as $index => $style) {
+        $this->addAsset("$basePath/$style");
+        $meta["styles"][$index] = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$style\">";
+      }
+      $meta["styles"] = implode("\n  ", $meta["styles"]);
     }
-    foreach($meta["styles"] as $index => $style) {
-      $meta["styles"][$index] = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$style\">";
+    if(isset($meta["scripts"])) {
+      foreach($meta["scripts"] as $index => $script) {
+        $this->addAsset("$basePath/$script");
+        $meta["scripts"][$index] = "<script type=\"text/javascript\" src=\"$script\"></script>";
+      }
+      $meta["scripts"] = implode("\n  ", $meta["scripts"]);
     }
-    foreach($meta["scripts"] as $index => $script) {
-      $meta["scripts"][$index] = "<script type=\"text/javascript\" src=\"$script\"></script>";
-    }
-    $meta["styles"] = implode("\n  ", $meta["styles"]);
-    $meta["scripts"] = implode("\n  ", $meta["scripts"]);
   }
   
   protected function createHtml(string $filename): string {
@@ -168,6 +175,12 @@ class Generator {
       $filename = "$this->output$path/{$file->getBasename(".md")}.html";
       FileSystem::write($filename, $html);
       echo "Created $path/{$file->getBasename(".md")}.html\n";
+    }
+    foreach($this->assets as $asset) {
+      $path = str_replace($this->source, "", $asset);
+      $target = "$this->output$path";
+      FileSystem::copy($asset, $target);
+      echo "Copied $path";
     }
   }
 }
