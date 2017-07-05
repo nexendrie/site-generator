@@ -20,7 +20,7 @@ Usage
 
 Just run **./vendor/bin/generate-site**. The script will go through all .md files in your project's root folder (and all its subfolders) and create html pages from them and place them under public folder. Both sources and output folders can be changed:
 
-```
+```bash
 ./vendor/bin/generate-site --source=doc --output=public
 ```
 
@@ -45,7 +45,7 @@ Advanced usage
 
 Site generator with every source file also looks for a meta file (file with same name but extension neon). You can set there some additional information for it there, like page's title.
 
-```
+```yaml
 title: My page
 ```
 
