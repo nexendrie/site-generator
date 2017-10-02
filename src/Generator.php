@@ -37,7 +37,7 @@ class Generator {
   }
   
   public function setSource(string $source) {
-    if(is_string($source) AND is_dir($source)) {
+    if(is_dir($source)) {
       $this->source = realpath($source);
     }
   }
@@ -47,9 +47,7 @@ class Generator {
   }
   
   public function setOutput(string $output) {
-    if(is_string($output)) {
-      $this->output = realpath($output);
-    }
+    $this->output = realpath($output);
   }
   
   protected function getMeta(string $filename): array {
