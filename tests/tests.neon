@@ -1,4 +1,4 @@
 application:
     scanDirs: false
 services:
-    generator: Nexendrie\SiteGenerator\Generator
+    generator: Nexendrie\SiteGenerator\Generator("../../..", "../../../public")

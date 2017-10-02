@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
-require_once(__DIR__ . "/functions.php");
-
 use cebe\markdown\GithubMarkdown,
     Nette\Utils\Finder,
     Nette\Neon\Neon,
@@ -28,14 +26,8 @@ class Generator {
   /** @var string[] */
   protected $assets = [];
   
-  public function __construct(string $source = NULL, string $output = NULL) {
-    if(is_null($source)) {
-      $source = findVendorDirectory() . "/../";
-    }
+  public function __construct(string $source, string $output) {
     $this->setSource($source);
-    if(is_null($output)) {
-      $output = findVendorDirectory() . "/../public/";
-    }
     FileSystem::createDir($output);
     $this->setOutput($output);
   }
