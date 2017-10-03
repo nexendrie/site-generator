@@ -142,6 +142,15 @@ class Generator {
     return $html;
   }
   
+  protected function copyAssets(): void {
+    foreach($this->assets as $asset) {
+      $path = str_replace($this->source, "", $asset);
+      $target = "$this->output$path";
+      FileSystem::copy($asset, $target);
+      echo "Copied $path";
+    }
+  }
+  
   /**
    * Generate the site
    */
@@ -153,19 +162,14 @@ class Generator {
       ->exclude("vendor", ".git", "tests");
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
-      $path = dirname($file->getRealPath());
-      $path = str_replace($this->source, "", $path);
+      $path = str_replace($this->source, "", dirname($file->getRealPath()));
       $html = $this->createHtml($file->getRealPath());
-      $filename = "$this->output$path/{$file->getBasename(".md")}.html";
+      $basename = $file->getBasename(".md") . ".html";
+      $filename = "$this->output$path/$basename";
       FileSystem::write($filename, $html);
-      echo "Created $path/{$file->getBasename(".md")}.html\n";
+      echo "Created $path/$basename\n";
     }
-    foreach($this->assets as $asset) {
-      $path = str_replace($this->source, "", $asset);
-      $target = "$this->output$path";
-      FileSystem::copy($asset, $target);
-      echo "Copied $path";
-    }
+    $this->copyAssets();
   }
 }
 ?>
