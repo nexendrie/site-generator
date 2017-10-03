@@ -7,7 +7,8 @@ use cebe\markdown\GithubMarkdown,
     Nette\Utils\Finder,
     Nette\Neon\Neon,
     Nette\Utils\FileSystem,
-    Symfony\Component\OptionsResolver\OptionsResolver;
+    Symfony\Component\OptionsResolver\OptionsResolver,
+    Nette\Utils\Validators;
 
 /**
  * Generator
@@ -58,12 +59,7 @@ class Generator {
       "scripts" => [],
     ]);
     $isArrayOfStrings = function(array $value) {
-      foreach($value as $item) {
-        if(!is_string($item)) {
-          return false;
-        }
-      }
-      return true;
+      return Validators::everyIs($value, "string");
     };
     $resolver->setAllowedTypes("title", "string");
     $resolver->setAllowedTypes("styles", "array");
