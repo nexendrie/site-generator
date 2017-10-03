@@ -85,18 +85,12 @@ class Generator {
   }
   
   protected function processAssets(array &$meta, string &$html, string $basePath): void {
-    foreach($meta["styles"] as $index => $style) {
-      if(!file_exists("$basePath/$style")) {
-        unset($meta["styles"][$index]);
-        continue;
-      }
-    }
-    foreach($meta["scripts"] as $index => $script) {
-      if(!file_exists("$basePath/$script")) {
-        unset($meta["scripts"][$index]);
-        continue;
-      }
-    }
+    $meta["styles"] = array_filter($meta["styles"], function($value) use($basePath) {
+      return file_exists("$basePath/$value");
+    });
+    $meta["scripts"] = array_filter($meta["scripts"], function($value) use($basePath) {
+      return file_exists("$basePath/$value");
+    });
     if(!count($meta["styles"])) {
       unset($meta["styles"]);
       $html = str_replace("
@@ -111,17 +105,17 @@ class Generator {
       return;
     }
     if(isset($meta["styles"])) {
-      foreach($meta["styles"] as $index => $style) {
-        $this->addAsset("$basePath/$style");
-        $meta["styles"][$index] = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$style\">";
-      }
+      array_walk($meta["styles"], function(&$value) use($basePath) {
+        $this->addAsset("$basePath/$value");
+        $value = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$value\">";
+      });
       $meta["styles"] = implode("\n  ", $meta["styles"]);
     }
     if(isset($meta["scripts"])) {
-      foreach($meta["scripts"] as $index => $script) {
-        $this->addAsset("$basePath/$script");
-        $meta["scripts"][$index] = "<script type=\"text/javascript\" src=\"$script\"></script>";
-      }
+      array_walk($meta["scripts"], function(&$value) use($basePath) {
+        $this->addAsset("$basePath/$value");
+        $value = "<script type=\"text/javascript\" src=\"$value\"></script>";
+      });
       $meta["scripts"] = implode("\n  ", $meta["scripts"]);
     }
   }
