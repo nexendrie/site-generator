@@ -51,7 +51,7 @@ class Generator {
   }
   
   protected function getMeta(string $filename): array {
-    $resolver = new OptionsResolver;
+    $resolver = new OptionsResolver();
     $resolver->setDefaults([
       "title" => "",
       "styles" => [],
@@ -127,7 +127,7 @@ class Generator {
   }
   
   protected function createHtml(string $filename): string {
-    $parser = new GithubMarkdown;
+    $parser = new GithubMarkdown();
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     $source = $parser->parse(file_get_contents($filename));
     $meta = $this->getMeta($filename);

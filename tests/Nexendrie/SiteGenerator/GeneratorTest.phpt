@@ -91,6 +91,6 @@ class GeneratorTest extends \Tester\TestCase {
   }
 }
 
-$test = new GeneratorTest;
+$test = new GeneratorTest();
 $test->run();
 ?>
