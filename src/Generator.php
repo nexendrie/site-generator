@@ -68,7 +68,7 @@ class Generator {
     $this->output = realpath($output);
   }
   
-  protected function getMeta(string $filename, string &$html): array {
+  protected function createMetaResolver(): OptionsResolver {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
       "title" => "",
@@ -83,6 +83,11 @@ class Generator {
     $resolver->setAllowedValues("styles", $isArrayOfStrings);
     $resolver->setAllowedTypes("scripts", "array");
     $resolver->setAllowedValues("scripts", $isArrayOfStrings);
+    return $resolver;
+  }
+  
+  protected function getMeta(string $filename, string &$html): array {
+    $resolver = $this->createMetaResolver();
     $metaFilename = str_replace(".md", ".neon", $filename);
     $meta = [];
     if(file_exists($metaFilename)) {
