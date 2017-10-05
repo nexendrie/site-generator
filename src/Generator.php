@@ -16,6 +16,8 @@ use cebe\markdown\GithubMarkdown,
  * @author Jakub Konečný
  * @property string $source
  * @property string $output
+ * @method void onBeforeGenerate()
+ * @method void onAfterGenerate()
  */
 class Generator {
   use \Nette\SmartObject;
@@ -26,11 +28,17 @@ class Generator {
   protected $output;
   /** @var string[] */
   protected $assets = [];
+  /** @var callable[] */
+  public $onBeforeGenerate = [];
+  /** @var callable[] */
+  public $onAfterGenerate = [];
   
   public function __construct(string $source, string $output) {
     $this->setSource($source);
     FileSystem::createDir($output);
     $this->setOutput($output);
+    $this->onBeforeGenerate[] = [$this, "clearOutputFolder"];
+    $this->onAfterGenerate[] = [$this, "copyAssets"];
   }
   
   public function getSource(): string {
@@ -138,7 +146,17 @@ class Generator {
     return $html;
   }
   
-  protected function copyAssets(): void {
+  /**
+   * @internal
+   */
+  public function clearOutputFolder(): void {
+    FileSystem::delete($this->output);
+  }
+  
+  /**
+   * @internal
+   */
+  public function copyAssets(): void {
     foreach($this->assets as $asset) {
       $path = str_replace($this->source, "", $asset);
       $target = "$this->output$path";
@@ -151,7 +169,7 @@ class Generator {
    * Generate the site
    */
   public function generate(): void {
-    FileSystem::delete($this->output);
+    $this->onBeforeGenerate();
     $files = Finder::findFiles("*.md")
       ->exclude("README.md")
       ->from($this->source)
@@ -165,7 +183,7 @@ class Generator {
       FileSystem::write($filename, $html);
       echo "Created $path/$basename\n";
     }
-    $this->copyAssets();
+    $this->onAfterGenerate();
   }
 }
 ?>
