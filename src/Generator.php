@@ -23,6 +23,8 @@ class Generator {
   use \Nette\SmartObject;
   
   /** @var string */
+  protected $templateFile;
+  /** @var string */
   protected $source;
   /** @var string */
   protected $output;
@@ -39,6 +41,7 @@ class Generator {
     $this->setSource($source);
     FileSystem::createDir($output);
     $this->setOutput($output);
+    $this->templateFile = __DIR__ . "/template.html";
     $this->onBeforeGenerate[] = [$this, "clearOutputFolder"];
     $this->onAfterGenerate[] = [$this, "copyAssets"];
     $this->addMetaNormalizer([$this, "normalizeTitle"]);
@@ -154,7 +157,7 @@ class Generator {
     $parser = new GithubMarkdown();
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     $source = $parser->parse(file_get_contents($filename));
-    $html = file_get_contents(__DIR__ . "/template.html");
+    $html = file_get_contents($this->templateFile);
     if(substr($source, -1) === PHP_EOL) {
       $source = substr($source, 0, -1);
     }
