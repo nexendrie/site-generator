@@ -166,7 +166,15 @@ class Generator {
   }
   
   protected function createMarkdownParser(): \cebe\markdown\Markdown {
-    $parser = new GithubMarkdown();
+    $parser = new class extends GithubMarkdown {
+      public function parse($text): string {
+        $markup = parent::parse($text);
+        if(substr($markup, -1) === PHP_EOL) {
+          $markup = substr($markup, 0, -1);
+        }
+        return $markup;
+      }
+    };
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     return $parser;
   }
@@ -175,9 +183,6 @@ class Generator {
     $parser = $this->createMarkdownParser();
     $source = $parser->parse(file_get_contents($filename));
     $html = file_get_contents($this->templateFile);
-    if(substr($source, -1) === PHP_EOL) {
-      $source = substr($source, 0, -1);
-    }
     $html = str_replace("%%source%%", $source, $html);
     return $html;
   }
