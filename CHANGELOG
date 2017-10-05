@@ -4,6 +4,7 @@ Version 0.2.0+dev
 - it is now possible to include stylesheets and scripts in generated pages
 - Generator no longer tries to guess source and output folders
 - added events onBeforeGenerate and onAfterGenerate to Generator
+- introduced meta normalizers for Generator
 
 Version 0.2.0
 - raised minimal version of PHP to 7

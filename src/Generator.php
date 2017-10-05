@@ -29,6 +29,8 @@ class Generator {
   /** @var string[] */
   protected $assets = [];
   /** @var callable[] */
+  protected $metaNormalizers = [];
+  /** @var callable[] */
   public $onBeforeGenerate = [];
   /** @var callable[] */
   public $onAfterGenerate = [];
@@ -39,6 +41,13 @@ class Generator {
     $this->setOutput($output);
     $this->onBeforeGenerate[] = [$this, "clearOutputFolder"];
     $this->onAfterGenerate[] = [$this, "copyAssets"];
+    $this->addMetaNormalizer([$this, "normalizeTitle"]);
+    $this->addMetaNormalizer([$this, "normalizeStyles"]);
+    $this->addMetaNormalizer([$this, "normalizeScripts"]);
+  }
+  
+  public function addMetaNormalizer(callable $callback): void {
+    $this->metaNormalizers[] = $callback;
   }
   
   public function getSource(): string {
@@ -59,7 +68,7 @@ class Generator {
     $this->output = realpath($output);
   }
   
-  protected function getMeta(string $filename): array {
+  protected function getMeta(string $filename, string &$html): array {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
       "title" => "",
@@ -79,7 +88,11 @@ class Generator {
     if(file_exists($metaFilename)) {
       $meta = Neon::decode(file_get_contents($metaFilename));
     }
-    return $resolver->resolve($meta);
+    $result = $resolver->resolve($meta);
+    foreach($this->metaNormalizers as $normalizer) {
+      $normalizer($result, $html, $filename);
+    }
+    return $result;
   }
   
   protected function addAsset(string $asset): void {
@@ -88,61 +101,59 @@ class Generator {
     }
   }
   
-  protected function processAssets(array &$meta, string &$html, string $basePath): void {
+  protected function normalizeTitle(array &$meta, string &$html, string $filename): void {
+    if(strlen($meta["title"]) === 0) {
+      unset($meta["title"]);
+      $html = str_replace("
+  <title>%%title%%</title>", "", $html);
+    }
+  }
+  
+  protected function normalizeStyles(array &$meta, string &$html, string $filename): void {
+    $basePath = dirname($filename);
     $meta["styles"] = array_filter($meta["styles"], function($value) use($basePath) {
-      return file_exists("$basePath/$value");
-    });
-    $meta["scripts"] = array_filter($meta["scripts"], function($value) use($basePath) {
       return file_exists("$basePath/$value");
     });
     if(!count($meta["styles"])) {
       unset($meta["styles"]);
       $html = str_replace("
   %%styles%%", "", $html);
+      return;
     }
+    array_walk($meta["styles"], function(&$value) use($basePath) {
+      $this->addAsset("$basePath/$value");
+      $value = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$value\">";
+    });
+    $meta["styles"] = implode("\n  ", $meta["styles"]);
+  }
+  
+  protected function normalizeScripts(array &$meta, string &$html, string $filename): void {
+    $basePath = dirname($filename);
+    $meta["scripts"] = array_filter($meta["scripts"], function($value) use($basePath) {
+      return file_exists("$basePath/$value");
+    });
     if(!count($meta["scripts"])) {
       unset($meta["scripts"]);
       $html = str_replace("
   %%scripts%%", "", $html);
-    }
-    if(!isset($meta["styles"]) AND !isset($meta["scripts"])) {
       return;
     }
-    if(isset($meta["styles"])) {
-      array_walk($meta["styles"], function(&$value) use($basePath) {
-        $this->addAsset("$basePath/$value");
-        $value = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$value\">";
-      });
-      $meta["styles"] = implode("\n  ", $meta["styles"]);
-    }
-    if(isset($meta["scripts"])) {
-      array_walk($meta["scripts"], function(&$value) use($basePath) {
-        $this->addAsset("$basePath/$value");
-        $value = "<script type=\"text/javascript\" src=\"$value\"></script>";
-      });
-      $meta["scripts"] = implode("\n  ", $meta["scripts"]);
-    }
+    array_walk($meta["scripts"], function(&$value) use($basePath) {
+      $this->addAsset("$basePath/$value");
+      $value = "<script type=\"text/javascript\" src=\"$value\"></script>";
+    });
+    $meta["scripts"] = implode("\n  ", $meta["scripts"]);
   }
   
   protected function createHtml(string $filename): string {
     $parser = new GithubMarkdown();
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
     $source = $parser->parse(file_get_contents($filename));
-    $meta = $this->getMeta($filename);
     $html = file_get_contents(__DIR__ . "/template.html");
     if(substr($source, -1) === PHP_EOL) {
       $source = substr($source, 0, -1);
     }
-    if(strlen($meta["title"]) === 0) {
-      unset($meta["title"]);
-      $html = str_replace("
-  <title>%%title%%</title>", "", $html);
-    }
-    $this->processAssets($meta, $html, dirname($filename));
-    $meta["source"] = $source;
-    foreach($meta as $key => $value) {
-      $html = str_replace("%%$key%%", $value, $html);
-    }
+    $html = str_replace("%%source%%", $source, $html);
     return $html;
   }
   
@@ -178,6 +189,10 @@ class Generator {
     foreach($files as $file) {
       $path = str_replace($this->source, "", dirname($file->getRealPath()));
       $html = $this->createHtml($file->getRealPath());
+      $meta = $this->getMeta($file->getRealPath(), $html);
+      foreach($meta as $key => $value) {
+        $html = str_replace("%%$key%%", $value, $html);
+      }
       $basename = $file->getBasename(".md") . ".html";
       $filename = "$this->output$path/$basename";
       FileSystem::write($filename, $html);
