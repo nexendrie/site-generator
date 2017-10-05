@@ -62,3 +62,5 @@ styles:
 scripts:
     - script.js
 ```
+
+If you mention a local image in your page, the file will be copied to output folder.

@@ -88,6 +88,8 @@ class GeneratorTest extends \Tester\TestCase {
     }
     Assert::true(file_exists("{$this->generator->output}/style.css"));
     Assert::true(file_exists("{$this->generator->output}/script.js"));
+    Assert::true(file_exists("{$this->generator->output}/blank.jpg"));
+    Assert::false(file_exists("{$this->generator->output}/nonexisting.png"));
   }
 }
 

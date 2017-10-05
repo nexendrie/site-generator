@@ -3,8 +3,9 @@ Version 0.2.0+dev
 - added dependency on symfony/options-resolver
 - it is now possible to include stylesheets and scripts in generated pages
 - Generator no longer tries to guess source and output folders
-- added events onBeforeGenerate and onAfterGenerate to Generator
+- added events onBeforeGenerate, onAfterGenerate and onCreatePage to Generator
 - introduced meta normalizers for Generator
+- local image mentioned in pages are now copied to output folder
 
 Version 0.2.0
 - raised minimal version of PHP to 7

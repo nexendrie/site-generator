@@ -17,6 +17,7 @@ use cebe\markdown\GithubMarkdown,
  * @property string $source
  * @property string $output
  * @method void onBeforeGenerate()
+ * @method void onCreatePage(string $html, Generator $generator, string $filename)
  * @method void onAfterGenerate()
  */
 class Generator {
@@ -35,6 +36,8 @@ class Generator {
   /** @var callable[] */
   public $onBeforeGenerate = [];
   /** @var callable[] */
+  public $onCreatePage = [];
+  /** @var callable[] */
   public $onAfterGenerate = [];
   
   public function __construct(string $source, string $output) {
@@ -43,6 +46,7 @@ class Generator {
     $this->setOutput($output);
     $this->templateFile = __DIR__ . "/template.html";
     $this->onBeforeGenerate[] = [$this, "clearOutputFolder"];
+    $this->onCreatePage[] = [$this, "processImages"];
     $this->onAfterGenerate[] = [$this, "copyAssets"];
     $this->addMetaNormalizer([$this, "normalizeTitle"]);
     $this->addMetaNormalizer([$this, "normalizeStyles"]);
@@ -186,6 +190,22 @@ class Generator {
   }
   
   /**
+   * @internal
+   */
+  public function processImages(string $html, self $generator, string $filename): void {
+    $dom = new \DOMDocument();
+    $dom->loadHTML($html);
+    $images = $dom->getElementsByTagName("img");
+    /** @var \DOMElement $image */
+    foreach($images as $image) {
+      $path = dirname($filename) . "/" . $image->getAttribute("src");
+      if(file_exists($path)) {
+        $generator->addAsset($path);
+      }
+    }
+  }
+  
+  /**
    * Generate the site
    */
   public function generate(): void {
@@ -206,6 +226,7 @@ class Generator {
       $filename = "$this->output$path/$basename";
       FileSystem::write($filename, $html);
       echo "Created $path/$basename\n";
+      $this->onCreatePage($html, $this, $file->getRealPath());
     }
     $this->onAfterGenerate();
   }
