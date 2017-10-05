@@ -104,8 +104,9 @@ class Generator {
   }
   
   protected function addAsset(string $asset): void {
+    $asset = realpath($asset);
     if(!in_array($asset, $this->assets)) {
-      $this->assets[] = realpath($asset);
+      $this->assets[] = $asset;
     }
   }
   
