@@ -24,7 +24,7 @@ class Generator {
   use \Nette\SmartObject;
   
   /** @var string */
-  protected $templateFile;
+  protected $templateFile = __DIR__ . "/template.html";
   /** @var string */
   protected $source;
   /** @var string */
@@ -44,7 +44,6 @@ class Generator {
     $this->setSource($source);
     FileSystem::createDir($output);
     $this->setOutput($output);
-    $this->templateFile = __DIR__ . "/template.html";
     $this->onBeforeGenerate[] = [$this, "clearOutputFolder"];
     $this->onCreatePage[] = [$this, "processImages"];
     $this->onAfterGenerate[] = [$this, "copyAssets"];
