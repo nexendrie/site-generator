@@ -157,9 +157,14 @@ class Generator {
     $meta["scripts"] = implode("\n  ", $meta["scripts"]);
   }
   
-  protected function createHtml(string $filename): string {
+  protected function createMarkdownParser(): \cebe\markdown\Markdown {
     $parser = new GithubMarkdown();
     $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
+    return $parser;
+  }
+  
+  protected function createHtml(string $filename): string {
+    $parser = $this->createMarkdownParser();
     $source = $parser->parse(file_get_contents($filename));
     $html = file_get_contents($this->templateFile);
     if(substr($source, -1) === PHP_EOL) {
