@@ -25,6 +25,14 @@ class Generator {
   
   /** @var string */
   protected $templateFile = __DIR__ . "/template.html";
+  /** @var string[] */
+  protected $ignoredFiles = [
+    "README.md",
+  ];
+  /** @var string[] */
+  protected $ignoredFolders = [
+    "vendor", ".git", "tests",
+  ];
   /** @var string */
   protected $source;
   /** @var string */
@@ -215,9 +223,9 @@ class Generator {
   public function generate(): void {
     $this->onBeforeGenerate();
     $files = Finder::findFiles("*.md")
-      ->exclude("README.md")
+      ->exclude($this->ignoredFiles)
       ->from($this->source)
-      ->exclude("vendor", ".git", "tests");
+      ->exclude($this->ignoredFolders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $path = str_replace($this->source, "", dirname($file->getRealPath()));
