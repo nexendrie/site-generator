@@ -129,11 +129,15 @@ class Generator {
     }
   }
   
-  protected function normalizeStyles(array &$meta, string &$html, string $filename): void {
-    $basePath = dirname($filename);
-    $meta["styles"] = array_filter($meta["styles"], function($value) use($basePath) {
+  protected function removeInvalidFiles(array &$input, string $basePath): void {
+    $input = array_filter($input, function($value) use($basePath) {
       return file_exists("$basePath/$value");
     });
+  }
+  
+  protected function normalizeStyles(array &$meta, string &$html, string $filename): void {
+    $basePath = dirname($filename);
+    $this->removeInvalidFiles($meta["styles"], $basePath);
     if(!count($meta["styles"])) {
       unset($meta["styles"]);
       $html = str_replace("
@@ -149,9 +153,7 @@ class Generator {
   
   protected function normalizeScripts(array &$meta, string &$html, string $filename): void {
     $basePath = dirname($filename);
-    $meta["scripts"] = array_filter($meta["scripts"], function($value) use($basePath) {
-      return file_exists("$basePath/$value");
-    });
+    $this->removeInvalidFiles($meta["scripts"], $basePath);
     if(!count($meta["scripts"])) {
       unset($meta["scripts"]);
       $html = str_replace("
