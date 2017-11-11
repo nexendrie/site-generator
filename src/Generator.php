@@ -100,9 +100,13 @@ class Generator {
     return $resolver;
   }
   
+  protected function getMetafileName(string $filename): string {
+    return str_replace(".md", ".neon", $filename);
+  }
+  
   protected function getMeta(string $filename, string &$html): array {
     $resolver = $this->createMetaResolver();
-    $metaFilename = str_replace(".md", ".neon", $filename);
+    $metaFilename = $this->getMetafileName($filename);
     $meta = [];
     if(file_exists($metaFilename)) {
       $meta = Neon::decode(file_get_contents($metaFilename));
