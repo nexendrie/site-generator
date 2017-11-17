@@ -5,7 +5,7 @@ namespace Nexendrie\SiteGenerator;
 
 use Nette\CommandLine\Parser;
 
-require_once __DIR__ . "/functions.php";
+require_once __DIR__ . "/../src/functions.php";
 require findVendorDirectory() . "/autoload.php";
 
 $cmd = new Parser("", [

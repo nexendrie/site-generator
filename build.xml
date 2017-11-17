@@ -15,7 +15,7 @@
     </exec>
   </target>
   <target name="documentation" depends="install">
-    <exec executable="src/generate-site" logoutput="true" passthru="true" checkreturn="true">
+    <exec executable="bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
       <arg value="--source=docs"/>
       <arg value="--output=public"/>
     </exec>
