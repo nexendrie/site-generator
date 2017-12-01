@@ -120,7 +120,7 @@ class Generator {
   
   protected function addAsset(string $asset): void {
     $asset = realpath($asset);
-    if(!in_array($asset, $this->assets)) {
+    if(!in_array($asset, $this->assets, true)) {
       $this->assets[] = $asset;
     }
   }
@@ -142,7 +142,7 @@ class Generator {
   protected function normalizeStyles(array &$meta, string &$html, string $filename): void {
     $basePath = dirname($filename);
     $this->removeInvalidFiles($meta["styles"], $basePath);
-    if(!count($meta["styles"])) {
+    if(count($meta["styles"]) === 0) {
       unset($meta["styles"]);
       $html = str_replace("
   %%styles%%", "", $html);
@@ -158,7 +158,7 @@ class Generator {
   protected function normalizeScripts(array &$meta, string &$html, string $filename): void {
     $basePath = dirname($filename);
     $this->removeInvalidFiles($meta["scripts"], $basePath);
-    if(!count($meta["scripts"])) {
+    if(count($meta["scripts"]) === 0) {
       unset($meta["scripts"]);
       $html = str_replace("
   %%scripts%%", "", $html);
