@@ -20,7 +20,7 @@ use cebe\markdown\GithubMarkdown,
  * @method void onCreatePage(string $html, Generator $generator, string $filename)
  * @method void onAfterGenerate()
  */
-class Generator {
+final class Generator {
   use \Nette\SmartObject;
   
   /** @var string */
