@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
-use cebe\markdown\GithubMarkdown,
-    Nette\Utils\Finder,
+use Nette\Utils\Finder,
     Nette\Neon\Neon,
     Nette\Utils\FileSystem,
     Symfony\Component\OptionsResolver\OptionsResolver,
@@ -172,17 +171,7 @@ final class Generator {
   }
   
   protected function createMarkdownParser(): \cebe\markdown\Markdown {
-    $parser = new class extends GithubMarkdown {
-      public function parse($text): string {
-        $markup = parent::parse($text);
-        if(substr($markup, -1) === PHP_EOL) {
-          $markup = substr($markup, 0, -1);
-        }
-        return $markup;
-      }
-    };
-    $parser->html5 = $parser->keepListStartNumber = $parser->enableNewlines = true;
-    return $parser;
+    return new MarkdownParser();
   }
   
   protected function createHtml(string $filename): string {
