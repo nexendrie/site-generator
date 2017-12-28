@@ -1,3 +1,6 @@
+Version 0.4.0-dev
+- raised minimal required version of symfony/options-resolver to 4.0.0
+
 Version 0.3.0
 - raised minimal version of PHP to 7.1
 - added dependency on symfony/options-resolver
