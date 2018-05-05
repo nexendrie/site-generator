@@ -8,8 +8,7 @@ use Tester\Assert,
 
 require __DIR__ . "/../../bootstrap.php";
 
-
-class GeneratorTest extends \Tester\TestCase {
+final class GeneratorTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
   /** @var Generator */
