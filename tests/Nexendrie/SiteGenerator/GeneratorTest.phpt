@@ -91,6 +91,12 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::true(file_exists("{$this->generator->output}/blank.jpg"));
     Assert::false(file_exists("{$this->generator->output}/nonexisting.png"));
   }
+  
+  public function testGetFilesToProcess() {
+    $filesToProcess = $this->generator->filesToProcess;
+    Assert::type(Finder::class, $filesToProcess);
+    Assert::count(2, $filesToProcess);
+  }
 }
 
 $test = new GeneratorTest();

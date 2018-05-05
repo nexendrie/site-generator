@@ -15,6 +15,7 @@ use Nette\Utils\Finder,
  * @author Jakub Konečný
  * @property string $source
  * @property string $output
+ * @property-read Finder|\SplFileInfo[] $filesToProcess
  * @method void onBeforeGenerate()
  * @method void onCreatePage(string $html, Generator $generator, string $filename)
  * @method void onAfterGenerate()
@@ -36,6 +37,8 @@ final class Generator {
   protected $source;
   /** @var string */
   protected $output;
+  /** @var Finder|\SplFileInfo[] */
+  protected $filesToProcess;
   /** @var string[] */
   protected $assets = [];
   /** @var callable[] */
@@ -51,6 +54,7 @@ final class Generator {
     $this->setSource($source);
     FileSystem::createDir($output);
     $this->setOutput($output);
+    $this->onBeforeGenerate[] = [$this, "getFilesToProcess"];
     $this->onBeforeGenerate[] = [$this, "clearOutputFolder"];
     $this->onCreatePage[] = [$this, "processImages"];
     $this->onAfterGenerate[] = [$this, "copyAssets"];
@@ -184,6 +188,18 @@ final class Generator {
   
   /**
    * @internal
+   * @return Finder|\SplFileInfo[]
+   */
+  public function getFilesToProcess(): Finder {
+    $this->filesToProcess = Finder::findFiles("*.md")
+      ->exclude($this->ignoredFiles)
+      ->from($this->source)
+      ->exclude($this->ignoredFolders);
+    return $this->filesToProcess;
+  }
+  
+  /**
+   * @internal
    */
   public function clearOutputFolder(): void {
     FileSystem::delete($this->output);
@@ -222,12 +238,7 @@ final class Generator {
    */
   public function generate(): void {
     $this->onBeforeGenerate();
-    $files = Finder::findFiles("*.md")
-      ->exclude($this->ignoredFiles)
-      ->from($this->source)
-      ->exclude($this->ignoredFolders);
-    /** @var \SplFileInfo $file */
-    foreach($files as $file) {
+    foreach($this->filesToProcess as $file) {
       $path = str_replace($this->source, "", dirname($file->getRealPath()));
       $html = $this->createHtml($file->getRealPath());
       $meta = $this->getMeta($file->getRealPath(), $html);
