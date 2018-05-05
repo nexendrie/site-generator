@@ -2,6 +2,7 @@ Version 0.4.0-dev
 - raised minimal required version of symfony/options-resolver to 4.0.0
 - marked class Generator as final
 - files to process are now stored in publicly readable property Generator::$filesToProcess
+- links to other .md files in sources are updated to link to generated .html pages
 
 Version 0.3.0
 - raised minimal version of PHP to 7.1

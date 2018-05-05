@@ -7,7 +7,8 @@ use Nette\Utils\Finder,
     Nette\Neon\Neon,
     Nette\Utils\FileSystem,
     Symfony\Component\OptionsResolver\OptionsResolver,
-    Nette\Utils\Validators;
+    Nette\Utils\Validators,
+    Nette\Utils\Strings;
 
 /**
  * Generator
@@ -61,6 +62,7 @@ final class Generator {
     $this->addMetaNormalizer([$this, "normalizeTitle"]);
     $this->addMetaNormalizer([$this, "normalizeStyles"]);
     $this->addMetaNormalizer([$this, "normalizeScripts"]);
+    $this->addMetaNormalizer([$this, "updateLinks"]);
   }
   
   public function addMetaNormalizer(callable $callback): void {
@@ -172,6 +174,35 @@ final class Generator {
       $value = "<script type=\"text/javascript\" src=\"$value\"></script>";
     });
     $meta["scripts"] = implode("\n  ", $meta["scripts"]);
+  }
+  
+  protected function updateLinks(array &$meta, string &$html, string $filename): void {
+    $dom = new \DOMDocument();
+    set_error_handler(function($errno) {
+      return $errno === E_WARNING;
+    });
+    $dom->loadHTML($html);
+    restore_error_handler();
+    $links = $dom->getElementsByTagName("a");
+    /** @var \DOMElement $link */
+    foreach($links as $link) {
+      $oldContent = $dom->saveHTML($link);
+      $needsUpdate = false;
+      $target = $link->getAttribute("href");
+      $target = dirname($filename) .  "/" . $target;
+      foreach($this->filesToProcess as $file) {
+        if($target === $file->getRealPath() AND Strings::endsWith($target, ".md")) {
+          $needsUpdate = true;
+          continue;
+        }
+      }
+      if(!$needsUpdate) {
+        continue;
+      }
+      $link->setAttribute("href", str_replace(".md", ".html", $link->getAttribute("href")));
+      $newContent = $dom->saveHTML($link);
+      $html = str_replace($oldContent, $newContent, $html);
+    }
   }
   
   protected function createMarkdownParser(): \cebe\markdown\Markdown {
