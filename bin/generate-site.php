@@ -17,9 +17,27 @@ $cmd = new Parser("", [
     Parser::VALUE => findVendorDirectory() . "/../public/",
     Parser::ARGUMENT => true,
   ],
+  "--ignoreFile" => [
+    Parser::ARGUMENT => true,
+    Parser::OPTIONAL => true,
+    Parser::REPEATABLE => true,
+  ],
+  "--ignoreFolder" => [
+    Parser::ARGUMENT => true,
+    Parser::OPTIONAL => true,
+    Parser::REPEATABLE => true,
+  ],
 ]);
 $options = $cmd->parse();
 
 $generator = new Generator($options["--source"], $options["--output"]);
+$ignoredFiles = $options["--ignoreFile"];
+if(count($ignoredFiles) > 0) {
+  $generator->ignoredFiles = $ignoredFiles;
+}
+$ignoredFolders = $options["--ignoreFolder"];
+if(count($ignoredFolders) > 0) {
+  $generator->ignoredFolders = $ignoredFolders;
+}
 $generator->generate();
 ?>

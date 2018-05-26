@@ -65,6 +65,16 @@ $generator->generate();
 
 This will ignore in any files in folder abc and files named abc.md.
 
+If you use the command line script, pass options --ignoreFile/--ignoreFolder for every file/folder you want to ignore. Example:
+
+
+```bash
+./vendor/bin/generate-site --source=doc --output=public --ignoreFile=abc.md --ignoreFile=def.md --ignoreFolder=abc --ignoreFolder=def
+```
+
+and any file in folders **abc** and **def** and files named **abc.md** and **def.md** will be ignored.
+
+
 Advanced usage
 ==============
 

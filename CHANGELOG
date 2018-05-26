@@ -4,6 +4,7 @@ Version 0.4.0-dev
 - files to process are now stored in publicly readable property Generator::$filesToProcess
 - links to other .md files in sources are updated to link to generated .html pages
 - made it possible to change list of ignored files and folders
+- added options --ignoreFile and --ignoreFolder for command line script
 
 Version 0.3.0
 - raised minimal version of PHP to 7.1
