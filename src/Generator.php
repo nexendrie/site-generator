@@ -17,6 +17,8 @@ use Nette\Utils\Finder,
  * @property string $source
  * @property string $output
  * @property-read Finder|\SplFileInfo[] $filesToProcess
+ * @property string[] $ignoredFiles
+ * @property string[] $ignoredFolders
  * @method void onBeforeGenerate()
  * @method void onCreatePage(string $html, Generator $generator, string $filename)
  * @method void onAfterGenerate()
@@ -85,6 +87,34 @@ final class Generator {
   
   public function setOutput(string $output) {
     $this->output = realpath($output);
+  }
+  
+  /**
+   * @return string[]
+   */
+  public function getIgnoredFiles(): array {
+    return $this->ignoredFiles;
+  }
+  
+  /**
+   * @param string[] $ignoredFiles
+   */
+  public function setIgnoredFiles(array $ignoredFiles): void {
+    $this->ignoredFiles = $ignoredFiles;
+  }
+  
+  /**
+   * @return string[]
+   */
+  public function getIgnoredFolders(): array {
+    return $this->ignoredFolders;
+  }
+  
+  /**
+   * @param string[] $ignoredFolders
+   */
+  public function setIgnoredFolders(array $ignoredFolders): void {
+    $this->ignoredFolders = $ignoredFolders;
   }
   
   protected function createMetaResolver(): OptionsResolver {

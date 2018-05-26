@@ -32,6 +32,20 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same($expected, $output);
   }
   
+  public function testIgnoredFiles() {
+    $originalValue = $this->generator->ignoredFiles;
+    $this->generator->ignoredFiles = [];
+    Assert::count(0, $this->generator->ignoredFiles);
+    $this->generator->ignoredFiles = $originalValue;
+  }
+  
+  public function testIgnoredFolders() {
+    $originalValue = $this->generator->ignoredFolders;
+    $this->generator->ignoredFolders = [];
+    Assert::count(0, $this->generator->ignoredFolders);
+    $this->generator->ignoredFolders = $originalValue;
+  }
+  
   protected function prepareSources() {
     $files = Finder::findFiles("*.md")
       ->from(dirname(findVendorDirectory()) . "/tests/sources");

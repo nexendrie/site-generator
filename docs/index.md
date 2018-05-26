@@ -42,6 +42,29 @@ $generator->generate();
 ?>
 ```
 
+Ignoring files and folders
+==========================
+
+By default, the generator ignores files named README.md and any .md files in folders named vendor, .git and tests. If you want to change that list, just set properties ignoredFiles and ignoredFolders on Generator instance. Bear in mind, that you are replacing the original list so you have to repeat things you want to keep. Example:
+
+
+```php
+<?php
+declare(strict_types=1);
+
+require __DIR__ . "/vendor/autoload.php";
+
+$source = "./sources";
+$output = "./docs";
+$generator = new Nexendrie\SiteGenerator\Generator($source, $output);
+$generator->ignoredFiles = ["abc.md"];
+$generator->ignoredFolders = ["abc"];
+$generator->generate();
+?>
+```
+
+This will ignore in any files in folder abc and files named abc.md.
+
 Advanced usage
 ==============
 
