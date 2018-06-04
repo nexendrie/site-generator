@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
-use Nette\Utils\Finder,
-    Nette\Neon\Neon,
-    Nette\Utils\FileSystem,
-    Symfony\Component\OptionsResolver\OptionsResolver,
-    Nette\Utils\Validators,
-    Nette\Utils\Strings;
+use Nette\Utils\Finder;
+use Nette\Neon\Neon;
+use Nette\Utils\FileSystem;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Nette\Utils\Validators;
+use Nette\Utils\Strings;
 
 /**
  * Generator

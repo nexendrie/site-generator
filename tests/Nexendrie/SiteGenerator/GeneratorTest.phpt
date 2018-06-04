@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
-use Tester\Assert,
-    Nette\Utils\Finder;
+use Tester\Assert;
+use Nette\Utils\Finder;
 
 require __DIR__ . "/../../bootstrap.php";
 
