@@ -6,7 +6,8 @@ namespace Nexendrie\SiteGenerator;
 function findVendorDirectory(): string {
   $recursionLimit = 10;
   $findVendor = function ($dirName = "vendor/bin", $dir = __DIR__) use (&$findVendor, &$recursionLimit) {
-    if(!$recursionLimit--) {
+    $recursionLimit--;
+    if($recursionLimit < 1) {
       throw new \Exception("Cannot find vendor directory.");
     }
     $found = $dir . "/$dirName";

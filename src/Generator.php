@@ -75,17 +75,17 @@ final class Generator {
     return $this->source;
   }
   
-  public function setSource(string $source) {
+  public function setSource(string $source): void {
     if(is_dir($source)) {
       $this->source = realpath($source);
     }
   }
-  
+
   public function getOutput(): string {
     return $this->output;
   }
-  
-  public function setOutput(string $output) {
+
+  public function setOutput(string $output): void {
     $this->output = realpath($output);
   }
   
