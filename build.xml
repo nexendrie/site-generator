@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="Nexendrie Site Generator" basedir="." default="test">
   <import file="vendor/nexendrie/code-quality/build.xml"/>
-  <target name="test" depends="install,lint,cs,phpstan,tests"/>
-  <target name="test-coverage" depends="install,lint,cs,phpstan,tests-coverage"/>
-  <target name="test-phpdbg" depends="install,lint,cs,phpstan,tests-phpdbg"/>
+  <target name="test" depends="lint,cs,phpstan,tests"/>
+  <target name="test-coverage" depends="lint,cs,phpstan,tests-coverage"/>
+  <target name="test-phpdbg" depends="lint,cs,phpstan,tests-phpdbg"/>
   <target name="ci-coverage">
     <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
       <arg value="-p"/>
@@ -15,7 +15,7 @@
       <arg path="./src"/>
     </exec>
   </target>
-  <target name="documentation" depends="install">
+  <target name="documentation">
     <exec executable="bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
       <arg value="--source=docs"/>
       <arg value="--output=public"/>
@@ -30,14 +30,5 @@
     <echo message="Created release commit."/>
     <exec command="git tag ${version} --message='Version ${version}' --sign" logoutput="true" passthru="true" checkreturn="true"/>
     <echo message="Created tag."/>
-  </target>
-  <target name="install">
-    <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
-      <arg value="install"/>
-      <arg value="--prefer-dist"/>
-      <arg value="--no-progress"/>
-      <arg value="--no-suggest"/>
-      <arg value="--no-interaction"/>
-    </exec>
   </target>
 </project>
