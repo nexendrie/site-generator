@@ -36,6 +36,11 @@
             "Nexendrie\\SiteGenerator\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Nexendrie\\SiteGenerator\\": "tests/Nexendrie/SiteGenerator/"
+        }
+    },
     "bin": [
         "bin/generate-site"
     ],
