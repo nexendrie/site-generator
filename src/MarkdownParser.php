@@ -17,9 +17,6 @@ final class MarkdownParser extends \cebe\markdown\GithubMarkdown {
   /** @var bool */
   public $enableNewlines = true;
 
-  /**
-   * @param string $text
-   */
   public function parse($text): string {
     $markup = parent::parse($text);
     if(substr($markup, -1) === PHP_EOL) {
