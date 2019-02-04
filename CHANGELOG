@@ -1,4 +1,4 @@
-Version 0.4.0+dev
+Version 0.5.0-dev
 - raised minimal version of PHP to 7.2
 
 Version 0.4.0
@@ -16,7 +16,7 @@ Version 0.3.0
 - Generator no longer tries to guess source and output folders
 - added events onBeforeGenerate, onAfterGenerate and onCreatePage to Generator
 - introduced meta normalizers for Generator
-- local image mentioned in pages are now copied to output folder
+- local images mentioned in pages are now copied to output folder
 
 Version 0.2.0
 - raised minimal version of PHP to 7
