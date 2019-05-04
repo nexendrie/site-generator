@@ -22,7 +22,7 @@
         "php": ">=7.2.0",
         "ext-dom": "*",
         "cebe/markdown": "^1.2",
-        "nette/finder": "^2.4",
+        "nette/finder": "^2.4 || ^3.0",
         "nette/neon": "^2.4 || ^3.0",
         "nette/utils": "^2.4 || ^3.0",
         "nette/command-line": "^1.4",
