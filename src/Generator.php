@@ -29,9 +29,7 @@ final class Generator {
   /** @var string */
   protected $templateFile = __DIR__ . "/template.html";
   /** @var string[] */
-  protected $ignoredFiles = [
-    "README.md",
-  ];
+  protected $ignoredFiles = [];
   /** @var string[] */
   protected $ignoredFolders = [
     "vendor", ".git", "tests",

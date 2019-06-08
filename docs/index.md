@@ -45,7 +45,7 @@ $generator->generate();
 Ignoring files and folders
 ==========================
 
-By default, the generator ignores files named README.md and any .md files in folders named vendor, .git and tests. If you want to change that list, just set properties ignoredFiles and ignoredFolders on Generator instance. Bear in mind, that you are replacing the original list so you have to repeat things you want to keep. Example:
+By default, the generator ignores any .md files in folders named vendor, .git and tests. If you want to change that list, just set properties ignoredFiles and ignoredFolders on Generator instance. Bear in mind, that you are replacing the original list so you have to repeat things you want to keep. Example:
 
 
 ```php

@@ -1,3 +1,6 @@
+Version 0.5.0+dev
+- README.md file is not ignored by default
+
 Version 0.5.0
 - raised minimal version of PHP to 7.2
 - allowed Nette 3
