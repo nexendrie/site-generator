@@ -75,7 +75,7 @@ final class Generator {
   
   public function setSource(string $source): void {
     if(is_dir($source)) {
-      $this->source = realpath($source);
+      $this->source = (string) realpath($source);
     }
   }
 
@@ -84,7 +84,7 @@ final class Generator {
   }
 
   public function setOutput(string $output): void {
-    $this->output = realpath($output);
+    $this->output = (string) realpath($output);
   }
   
   /**
@@ -159,7 +159,7 @@ final class Generator {
   
   protected function addAsset(string $asset): void {
     $asset = realpath($asset);
-    if(!in_array($asset, $this->assets, true)) {
+    if(is_string($asset) AND !in_array($asset, $this->assets, true)) {
       $this->assets[] = $asset;
     }
   }

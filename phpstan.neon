@@ -5,7 +5,5 @@ parameters:
     autoload_files:
         - %rootDir%/../../../src/functions.php
     ignoreErrors:
-        - '#Property Nexendrie\\SiteGenerator\\Generator::\$(source|output) \(string\) does not accept string\|false#'
         - '#Parameter \#[0-9]+ \$[a-zA-Z]+ of (function|method|static method) [a-zA-Z\\_:]*(\(\))? expects (array\|)?string, string\|false given#'
-        - '#Array \(array<string>\) does not accept string\|false#'
         - "#Casting to string something that's already string#"
