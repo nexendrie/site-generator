@@ -78,10 +78,11 @@ and any file in folders **abc** and **def** and files named **abc.md** and **def
 Advanced usage
 ==============
 
-Site generator with every source file also looks for a meta file (file with same name but extension neon). You can set there some additional information for it there, like page's title.
+Site generator with every source file also looks for a meta file (file with same name but extension neon). You can set there some additional information for it there, like page's title and language.
 
 ```yaml
 title: My page
+htmlLang: en
 ```
 
 It is possible to normalize the meta info and modify the generated page based on some meta info. Just add meta normalizer to Generator via method addMetaNormalizer. The method accepts a callback. The normalizer will receive 3 parameters: meta info (as array), html code (in string) and name of currently processed file (as string). Tip: declare first 2 parameters as passed by reference so you can modify them in your function.

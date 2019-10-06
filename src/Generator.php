@@ -63,6 +63,7 @@ final class Generator {
     $this->addMetaNormalizer([$this, "normalizeStyles"]);
     $this->addMetaNormalizer([$this, "normalizeScripts"]);
     $this->addMetaNormalizer([$this, "updateLinks"]);
+    $this->addMetaNormalizer([$this, "addHtmlLanguage"]);
   }
   
   public function addMetaNormalizer(callable $callback): void {
@@ -125,6 +126,7 @@ final class Generator {
     $resolver = new OptionsResolver();
     $resolver->setDefaults([
       "title" => "",
+      "htmlLang" => "",
       "styles" => [],
       "scripts" => [],
     ]);
@@ -132,6 +134,7 @@ final class Generator {
       return Validators::everyIs($value, "string");
     };
     $resolver->setAllowedTypes("title", "string");
+    $resolver->setAllowedTypes("htmlLang", "string");
     $resolver->setAllowedTypes("styles", "array");
     $resolver->setAllowedValues("styles", $isArrayOfStrings);
     $resolver->setAllowedTypes("scripts", "array");
@@ -236,6 +239,12 @@ final class Generator {
       $link->setAttribute("href", str_replace(".md", ".html", $link->getAttribute("href")));
       $newContent = $dom->saveHTML($link);
       $html = str_replace($oldContent, $newContent, $html);
+    }
+  }
+
+  protected function addHtmlLanguage(array &$meta, string &$html, string $filename): void {
+    if(strlen($meta["htmlLang"]) > 0) {
+      $html = str_replace("<html>", "<html lang=\"{$meta["htmlLang"]}\">", $html);
     }
   }
   

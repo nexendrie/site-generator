@@ -1,5 +1,6 @@
 Version 0.6.0-dev
 - README.md file is not ignored by default
+- made it possible to add html lang attribute to generated pages
 
 Version 0.5.0
 - raised minimal version of PHP to 7.2
