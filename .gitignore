@@ -1,4 +1,5 @@
 /vendor/
+/public/
 /tests/_temp/
 output/
 *.actual
