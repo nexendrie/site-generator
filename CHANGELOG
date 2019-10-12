@@ -1,4 +1,4 @@
-Version 0.6.0-dev
+Version 0.6.0
 - README.md file is not ignored by default
 - made it possible to add html lang attribute to generated pages
 - generated pages contain doctype and viewport
