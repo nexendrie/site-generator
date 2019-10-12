@@ -70,35 +70,35 @@ final class Generator {
     $this->metaNormalizers[] = $callback;
   }
   
-  public function getSource(): string {
+  protected function getSource(): string {
     return $this->source;
   }
   
-  public function setSource(string $source): void {
+  protected function setSource(string $source): void {
     if(is_dir($source)) {
       $this->source = (string) realpath($source);
     }
   }
 
-  public function getOutput(): string {
+  protected function getOutput(): string {
     return $this->output;
   }
 
-  public function setOutput(string $output): void {
+  protected function setOutput(string $output): void {
     $this->output = (string) realpath($output);
   }
   
   /**
    * @return string[]
    */
-  public function getIgnoredFiles(): array {
+  protected function getIgnoredFiles(): array {
     return $this->ignoredFiles;
   }
-  
+
   /**
    * @param string[] $ignoredFiles
    */
-  public function setIgnoredFiles(array $ignoredFiles): void {
+  protected function setIgnoredFiles(array $ignoredFiles): void {
     $this->ignoredFiles = [];
     foreach($ignoredFiles as $ignoredFile) {
       $this->ignoredFiles[] = (string) $ignoredFile;
@@ -108,14 +108,14 @@ final class Generator {
   /**
    * @return string[]
    */
-  public function getIgnoredFolders(): array {
+  protected function getIgnoredFolders(): array {
     return $this->ignoredFolders;
   }
-  
+
   /**
    * @param string[] $ignoredFolders
    */
-  public function setIgnoredFolders(array $ignoredFolders): void {
+  protected function setIgnoredFolders(array $ignoredFolders): void {
     $this->ignoredFolders = [];
     foreach($ignoredFolders as $ignoredFolder) {
       $this->ignoredFolders[] = (string) $ignoredFolder;
@@ -261,10 +261,9 @@ final class Generator {
   }
   
   /**
-   * @internal
    * @return Finder|\SplFileInfo[]
    */
-  public function getFilesToProcess(): Finder {
+  protected function getFilesToProcess(): Finder {
     $this->filesToProcess = Finder::findFiles("*.md")
       ->exclude($this->ignoredFiles)
       ->from($this->source)
