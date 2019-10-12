@@ -261,9 +261,11 @@ final class Generator {
   }
   
   /**
+   * @internal
    * @return Finder|\SplFileInfo[]
+   * @todo make protected when we drop support for nette/utils 2.5
    */
-  protected function getFilesToProcess(): Finder {
+  public function getFilesToProcess(): Finder {
     $this->filesToProcess = Finder::findFiles("*.md")
       ->exclude($this->ignoredFiles)
       ->from($this->source)
