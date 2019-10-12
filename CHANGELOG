@@ -1,3 +1,6 @@
+Version 0.6.1
+- fixed Generator::$filesToProcess for nette/utils 2.5
+
 Version 0.6.0
 - README.md file is not ignored by default
 - made it possible to add html lang attribute to generated pages
