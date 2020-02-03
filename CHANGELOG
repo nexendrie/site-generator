@@ -1,3 +1,6 @@
+Version 0.6.2
+- allowed symfony/options-resolver 5
+
 Version 0.6.1
 - fixed Generator::$filesToProcess for nette/utils 2.5
 
