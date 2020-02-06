@@ -130,7 +130,7 @@ final class Generator {
       "styles" => [],
       "scripts" => [],
     ]);
-    $isArrayOfStrings = function(array $value) {
+    $isArrayOfStrings = function(array $value): bool {
       return Validators::everyIs($value, "string");
     };
     $resolver->setAllowedTypes("title", "string");
@@ -176,7 +176,7 @@ final class Generator {
   }
   
   protected function removeInvalidFiles(array &$input, string $basePath): void {
-    $input = array_filter($input, function($value) use($basePath) {
+    $input = array_filter($input, function($value) use($basePath): bool {
       return file_exists("$basePath/$value");
     });
   }
@@ -190,7 +190,7 @@ final class Generator {
   %%styles%%", "", $html);
       return;
     }
-    array_walk($meta["styles"], function(&$value) use($basePath) {
+    array_walk($meta["styles"], function(&$value) use($basePath): void {
       $this->addAsset("$basePath/$value");
       $value = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$value\">";
     });
@@ -206,7 +206,7 @@ final class Generator {
   %%scripts%%", "", $html);
       return;
     }
-    array_walk($meta["scripts"], function(&$value) use($basePath) {
+    array_walk($meta["scripts"], function(&$value) use($basePath): void {
       $this->addAsset("$basePath/$value");
       $value = "<script type=\"text/javascript\" src=\"$value\"></script>";
     });
@@ -215,7 +215,7 @@ final class Generator {
   
   protected function updateLinks(array &$meta, string &$html, string $filename): void {
     $dom = new \DOMDocument();
-    set_error_handler(function($errno) {
+    set_error_handler(function($errno): bool {
       return $errno === E_WARNING;
     });
     $dom->loadHTML($html);
