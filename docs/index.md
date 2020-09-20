@@ -80,7 +80,7 @@ Advanced usage
 
 Site generator with every source file also looks for a meta file (file with same name but extension neon). You can set there some additional information for it there, like page's title and language.
 
-```yaml
+```neon
 title: My page
 htmlLang: en
 ```
@@ -92,7 +92,7 @@ Additional assets
 
 If your page needs additional assets (CSS stylesheets, JavaScript), just list them in the page's meta file and they will be copied to the output folder and the generated page will include them.
 
-```yaml
+```neon
 styles:
     - style.css
 scripts:
