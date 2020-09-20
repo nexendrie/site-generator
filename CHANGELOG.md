@@ -1,6 +1,6 @@
 Version 0.7.0-dev
 - dropped support for Nette 2.4
-- raised minimal version of PHP to 7.3
+- raised minimal version of PHP to 7.4
 
 Version 0.6.2
 - allowed symfony/options-resolver 5
