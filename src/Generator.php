@@ -159,7 +159,7 @@ final class Generator {
   
   protected function addAsset(string $asset): void {
     $asset = realpath($asset);
-    if(is_string($asset) AND !in_array($asset, $this->assets, true)) {
+    if(is_string($asset) && !in_array($asset, $this->assets, true)) {
       $this->assets[] = $asset;
     }
   }
@@ -225,7 +225,7 @@ final class Generator {
       $target = $link->getAttribute("href");
       $target = dirname($filename) . "/" . $target;
       foreach($this->filesToProcess as $file) {
-        if($target === $file->getRealPath() AND Strings::endsWith($target, ".md")) {
+        if($target === $file->getRealPath() && Strings::endsWith($target, ".md")) {
           $needsUpdate = true;
           continue;
         }
