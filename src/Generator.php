@@ -25,31 +25,28 @@ use Nette\Utils\Strings;
  */
 final class Generator {
   use \Nette\SmartObject;
-  
-  /** @var string */
-  protected $templateFile = __DIR__ . "/template.html";
+
+  protected string $templateFile = __DIR__ . "/template.html";
   /** @var string[] */
-  protected $ignoredFiles = [];
+  protected array $ignoredFiles = [];
   /** @var string[] */
-  protected $ignoredFolders = [
+  protected array $ignoredFolders = [
     "vendor", ".git", "tests",
   ];
-  /** @var string */
-  protected $source;
-  /** @var string */
-  protected $output;
+  protected string $source;
+  protected string $output;
   /** @var Finder|\SplFileInfo[] */
   protected $filesToProcess;
   /** @var string[] */
-  protected $assets = [];
+  protected array $assets = [];
   /** @var callable[] */
-  protected $metaNormalizers = [];
+  protected array $metaNormalizers = [];
   /** @var callable[] */
-  public $onBeforeGenerate = [];
+  public array $onBeforeGenerate = [];
   /** @var callable[] */
-  public $onCreatePage = [];
+  public array $onCreatePage = [];
   /** @var callable[] */
-  public $onAfterGenerate = [];
+  public array $onAfterGenerate = [];
   
   public function __construct(string $source, string $output) {
     $this->setSource($source);
