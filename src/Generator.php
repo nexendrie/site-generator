@@ -26,21 +26,21 @@ use Nette\Utils\Strings;
 final class Generator {
   use \Nette\SmartObject;
 
-  protected string $templateFile = __DIR__ . "/template.html";
+  private string $templateFile = __DIR__ . "/template.html";
   /** @var string[] */
-  protected array $ignoredFiles = [];
+  private array $ignoredFiles = [];
   /** @var string[] */
-  protected array $ignoredFolders = [
+  private array $ignoredFolders = [
     "vendor", ".git", "tests",
   ];
-  protected string $source;
-  protected string $output;
+  private string $source;
+  private string $output;
   /** @var Finder|\SplFileInfo[] */
-  protected $filesToProcess;
+  private $filesToProcess;
   /** @var string[] */
-  protected array $assets = [];
+  private array $assets = [];
   /** @var callable[] */
-  protected array $metaNormalizers = [];
+  private array $metaNormalizers = [];
   /** @var callable[] */
   public array $onBeforeGenerate = [];
   /** @var callable[] */
