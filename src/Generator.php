@@ -223,7 +223,7 @@ final class Generator {
       $oldContent = $dom->saveHTML($link);
       $needsUpdate = false;
       $target = $link->getAttribute("href");
-      $target = dirname($filename) .  "/" . $target;
+      $target = dirname($filename) . "/" . $target;
       foreach($this->filesToProcess as $file) {
         if($target === $file->getRealPath() AND Strings::endsWith($target, ".md")) {
           $needsUpdate = true;
