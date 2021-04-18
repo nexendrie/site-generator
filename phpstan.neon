@@ -4,4 +4,3 @@ includes:
 parameters:
     ignoreErrors:
         - '#Parameter \#[0-9]+ \$[a-zA-Z]+ of (function|method|static method) [a-zA-Z\\_:]*(\(\))? expects (array\|)?string, string\|false given#'
-        - "#Casting to string something that's already string#"
