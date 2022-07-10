@@ -24,9 +24,9 @@
         "cebe/markdown": "^1.2",
         "nette/finder": "^2.5.2 || ^3.0",
         "nette/neon": "^3.2.2",
-        "nette/utils": "^3.2.2",
+        "nette/utils": "^3.2.7",
         "nette/command-line": "^1.5",
-        "symfony/options-resolver": "^5.1"
+        "symfony/options-resolver": "^5.1 || ^6.0"
     },
     "require-dev": {
         "nexendrie/code-quality": "dev-master"
