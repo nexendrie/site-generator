@@ -22,11 +22,11 @@
         "php": ">=7.4.0",
         "ext-dom": "*",
         "cebe/markdown": "^1.2",
-        "nette/finder": "^2.5.2 || ^3.0",
-        "nette/neon": "^3.2.2",
-        "nette/utils": "^3.2.7",
-        "nette/command-line": "^1.5",
-        "symfony/options-resolver": "^5.1 || ^6.0"
+        "nette/finder": "^2.6",
+        "nette/neon": "^3.3",
+        "nette/utils": "^3.2.10",
+        "nette/command-line": "^1.7",
+        "symfony/options-resolver": "^5.1"
     },
     "require-dev": {
         "nexendrie/code-quality": "dev-master"

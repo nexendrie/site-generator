@@ -108,7 +108,7 @@ final class GeneratorTest extends \Tester\TestCase {
   public function testGetFilesToProcess() {
     $filesToProcess = $this->generator->filesToProcess;
     Assert::type(Finder::class, $filesToProcess);
-    Assert::count(2, $filesToProcess);
+    Assert::same(2, iterator_count($filesToProcess->getIterator()));
   }
 }
 

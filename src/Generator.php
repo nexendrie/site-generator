@@ -264,9 +264,9 @@ final class Generator {
    */
   public function getFilesToProcess(): Finder {
     $this->filesToProcess = Finder::findFiles("*.md")
-      ->exclude($this->ignoredFiles)
+      ->exclude(...$this->ignoredFiles)
       ->from($this->source)
-      ->exclude($this->ignoredFolders);
+      ->exclude(...$this->ignoredFolders);
     return $this->filesToProcess;
   }
   
