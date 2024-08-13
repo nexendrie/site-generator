@@ -10,22 +10,22 @@ require findVendorDirectory() . "/autoload.php";
 
 $cmd = new Parser("", [
   "--source" => [
-    Parser::REALPATH => true, Parser::VALUE => findVendorDirectory() . "/../",
-    Parser::ARGUMENT => true,
+    Parser::RealPath => true, Parser::Default => findVendorDirectory() . "/../",
+    Parser::Argument => true,
   ],
   "--output" => [
-    Parser::VALUE => findVendorDirectory() . "/../public/",
-    Parser::ARGUMENT => true,
+    Parser::Default => findVendorDirectory() . "/../public/",
+    Parser::Argument => true,
   ],
   "--ignoreFile" => [
-    Parser::ARGUMENT => true,
-    Parser::OPTIONAL => true,
-    Parser::REPEATABLE => true,
+    Parser::Argument => true,
+    Parser::Optional => true,
+    Parser::Repeatable => true,
   ],
   "--ignoreFolder" => [
-    Parser::ARGUMENT => true,
-    Parser::OPTIONAL => true,
-    Parser::REPEATABLE => true,
+    Parser::Argument => true,
+    Parser::Optional => true,
+    Parser::Repeatable => true,
   ],
 ]);
 $options = $cmd->parse();
