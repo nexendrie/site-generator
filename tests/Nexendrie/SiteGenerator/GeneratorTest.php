@@ -14,39 +14,39 @@ final class GeneratorTest extends \Tester\TestCase {
   /** @var Generator */
   protected $generator;
   
-  protected function setUp() {
-    $this->generator = $this->getService(Generator::class);
+  protected function setUp(): void {
+    $this->generator = $this->getService(Generator::class); // @phpstan-ignore assign.propertyType
   }
   
-  public function testGetSource() {
+  public function testGetSource(): void {
     $source = $this->generator->source;
     Assert::type("string", $source);
     $expected = realpath(dirname(findVendorDirectory()));
     Assert::same($expected, $source);
   }
   
-  public function testGetOutput() {
+  public function testGetOutput(): void {
     $output = $this->generator->output;
     Assert::type("string", $output);
     $expected = realpath(dirname(findVendorDirectory()) . "/public");
     Assert::same($expected, $output);
   }
   
-  public function testIgnoredFiles() {
+  public function testIgnoredFiles(): void {
     $originalValue = $this->generator->ignoredFiles;
     $this->generator->ignoredFiles = [];
     Assert::count(0, $this->generator->ignoredFiles);
     $this->generator->ignoredFiles = $originalValue;
   }
   
-  public function testIgnoredFolders() {
+  public function testIgnoredFolders(): void {
     $originalValue = $this->generator->ignoredFolders;
     $this->generator->ignoredFolders = [];
     Assert::count(0, $this->generator->ignoredFolders);
     $this->generator->ignoredFolders = $originalValue;
   }
   
-  protected function prepareSources() {
+  protected function prepareSources(): void {
     $files = Finder::findFiles("*.md")
       ->from(dirname(findVendorDirectory()) . "/tests/sources");
     $source = $this->generator->source;
@@ -56,7 +56,7 @@ final class GeneratorTest extends \Tester\TestCase {
     }
   }
   
-  protected function cleanSources() {
+  protected function cleanSources(): void {
     $files = Finder::findFiles("*.md")
       ->from(dirname(findVendorDirectory()) . "/tests/sources");
     $source = $this->generator->source;
@@ -66,7 +66,7 @@ final class GeneratorTest extends \Tester\TestCase {
     }
   }
   
-  public function testGenerate() {
+  public function testGenerate(): void {
     $this->prepareSources();
     $this->generator->generate();
     $files = [
@@ -81,9 +81,9 @@ final class GeneratorTest extends \Tester\TestCase {
     $this->cleanSources();
   }
   
-  public function testGenerateWithCustomFolders() {
-    $source = realpath(dirname(findVendorDirectory()) . "/tests/sources");
-    $output = realpath(dirname(findVendorDirectory()) . "/public");
+  public function testGenerateWithCustomFolders(): void {
+    $source = (string) realpath(dirname(findVendorDirectory()) . "/tests/sources");
+    $output = (string) realpath(dirname(findVendorDirectory()) . "/public");
     $this->generator->source = $source;
     Assert::same($source, $this->generator->source);
     $this->generator->output = $output;
@@ -105,7 +105,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::false(file_exists("{$this->generator->output}/nonexisting.png"));
   }
   
-  public function testGetFilesToProcess() {
+  public function testGetFilesToProcess(): void {
     $filesToProcess = $this->generator->filesToProcess;
     Assert::type(Finder::class, $filesToProcess);
     Assert::same(2, iterator_count($filesToProcess->getIterator()));
