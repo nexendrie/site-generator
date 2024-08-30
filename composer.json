@@ -21,7 +21,7 @@
     "require": {
         "php": ">=8.0.0",
         "ext-dom": "*",
-        "cebe/markdown": "^1.2",
+        "xenocrat/chyrp-markdown": "^3.8",
         "nette/finder": "^2.6",
         "nette/neon": "^3.4.1",
         "nette/utils": "^3.2.10",

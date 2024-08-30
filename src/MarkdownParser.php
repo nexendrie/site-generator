@@ -9,7 +9,7 @@ namespace Nexendrie\SiteGenerator;
  * @author Jakub Konečný
  * @internal
  */
-final class MarkdownParser extends \cebe\markdown\GithubMarkdown {
+final class MarkdownParser extends \xenocrat\markdown\GithubMarkdown {
   /** @var bool */
   public $html5 = true;
   /** @var bool */

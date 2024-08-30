@@ -245,7 +245,7 @@ final class Generator {
     }
   }
   
-  protected function createMarkdownParser(): \cebe\markdown\Markdown {
+  protected function createMarkdownParser(): \xenocrat\markdown\Markdown {
     return new MarkdownParser();
   }
   
