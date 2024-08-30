@@ -1,4 +1,4 @@
-image: nexendrie/php:7.4
+image: nexendrie/php:8.0
 
 stages:
   - test
@@ -15,9 +15,6 @@ before_script:
   stage: test
   script:
   - phing test
-
-test:default:
-  <<: *test_job
 
 test:php8.0:
   <<: *test_job
