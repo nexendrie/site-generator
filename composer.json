@@ -23,10 +23,10 @@
         "ext-dom": "*",
         "cebe/markdown": "^1.2",
         "nette/finder": "^2.6",
-        "nette/neon": "^3.3",
+        "nette/neon": "^3.4.1",
         "nette/utils": "^3.2.10",
         "nette/command-line": "^1.7",
-        "symfony/options-resolver": "^5.1"
+        "symfony/options-resolver": "^6.0"
     },
     "require-dev": {
         "nexendrie/code-quality": "dev-master"
