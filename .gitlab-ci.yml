@@ -34,8 +34,6 @@ test:php8.3:
 
 test:cc:
   <<: *test_job
-  script:
-  - phing test-coverage
   coverage: '/(\d+\%) covered/'
 
 pages:
