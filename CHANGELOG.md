@@ -1,5 +1,6 @@
 Version 0.8.0-dev
 - raised minimal version of PHP to 8.0
+- allowed symfony/options-resolver 6 and 7
 
 Version 0.7.0
 - dropped support for Nette 2.4
