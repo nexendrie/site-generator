@@ -1,4 +1,4 @@
-Version 0.8.0-dev
+Version 0.8.0
 - raised minimal version of PHP to 8.1
 - allowed symfony/options-resolver 6 and 7
 
