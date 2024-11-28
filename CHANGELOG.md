@@ -1,6 +1,6 @@
 Version 0.8.0-dev
 - raised minimal version of PHP to 8.0
-- 
+
 Version 0.7.0
 - dropped support for Nette 2.4
 - raised minimal version of PHP to 7.4
