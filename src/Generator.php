@@ -220,7 +220,7 @@ final class Generator {
     $links = $dom->getElementsByTagName("a");
     /** @var \DOMElement $link */
     foreach($links as $link) {
-      $oldContent = $dom->saveHTML($link);
+      $oldContent = (string) $dom->saveHTML($link);
       $needsUpdate = false;
       $target = $link->getAttribute("href");
       $target = dirname($filename) . "/" . $target;
@@ -234,7 +234,7 @@ final class Generator {
         continue;
       }
       $link->setAttribute("href", str_replace(".md", ".html", $link->getAttribute("href")));
-      $newContent = $dom->saveHTML($link);
+      $newContent = (string) $dom->saveHTML($link);
       $html = str_replace($oldContent, $newContent, $html);
     }
   }
@@ -252,7 +252,7 @@ final class Generator {
   protected function createHtml(string $filename): string {
     $parser = $this->createMarkdownParser();
     $source = $parser->parse(file_get_contents($filename));
-    $html = file_get_contents($this->templateFile);
+    $html = (string) file_get_contents($this->templateFile);
     $html = str_replace("%%source%%", $source, $html);
     return $html;
   }
