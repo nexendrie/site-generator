@@ -258,29 +258,21 @@ final class Generator {
   }
   
   /**
-   * @internal
    * @return Finder|\SplFileInfo[]
-   * @todo make protected when we drop support for nette/utils 2.5
    */
-  public function getFilesToProcess(): Finder {
+  protected function getFilesToProcess(): Finder {
     $this->filesToProcess = Finder::findFiles("*.md")
       ->exclude(...$this->ignoredFiles)
       ->from($this->source)
       ->exclude(...$this->ignoredFolders);
     return $this->filesToProcess;
   }
-  
-  /**
-   * @internal
-   */
-  public function clearOutputFolder(): void {
+
+  protected function clearOutputFolder(): void {
     FileSystem::delete($this->output);
   }
-  
-  /**
-   * @internal
-   */
-  public function copyAssets(): void {
+
+  protected function copyAssets(): void {
     foreach($this->assets as $asset) {
       $path = str_replace($this->source, "", $asset);
       $target = "$this->output$path";
@@ -288,11 +280,8 @@ final class Generator {
       echo "Copied $path";
     }
   }
-  
-  /**
-   * @internal
-   */
-  public function processImages(string $html, self $generator, string $filename): void {
+
+  protected function processImages(string $html, self $generator, string $filename): void {
     $dom = new \DOMDocument();
     $dom->loadHTML($html);
     $images = $dom->getElementsByTagName("img");
