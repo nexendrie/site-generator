@@ -3,4 +3,3 @@ includes:
     - vendor/nexendrie/code-quality/phpstan.neon
 parameters:
     ignoreErrors:
-        - '#Parameter \#[0-9]+ \$[a-zA-Z]+ of (function|method|static method) [a-zA-Z\\_:]*(\(\))? expects (array\|)?string, string\|false given#'

@@ -148,7 +148,7 @@ final class Generator {
     $metaFilename = $this->getMetafileName($filename);
     $meta = [];
     if(file_exists($metaFilename)) {
-      $meta = Neon::decode(file_get_contents($metaFilename));
+      $meta = Neon::decode((string) file_get_contents($metaFilename));
     }
     $result = $resolver->resolve($meta);
     foreach($this->metaNormalizers as $normalizer) {
@@ -251,7 +251,7 @@ final class Generator {
   
   protected function createHtml(string $filename): string {
     $parser = $this->createMarkdownParser();
-    $source = $parser->parse(file_get_contents($filename));
+    $source = $parser->parse((string) file_get_contents($filename));
     $html = (string) file_get_contents($this->templateFile);
     $html = str_replace("%%source%%", $source, $html);
     return $html;

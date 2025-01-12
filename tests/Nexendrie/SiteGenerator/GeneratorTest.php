@@ -76,7 +76,7 @@ final class GeneratorTest extends \Tester\TestCase {
       $actual = "{$this->generator->output}/$actual";
       $expected = __DIR__ . "/$expected";
       Assert::true(file_exists($actual));
-      Assert::matchFile($expected, file_get_contents($actual));
+      Assert::matchFile($expected, (string) file_get_contents($actual));
     }
     $this->cleanSources();
   }
@@ -97,7 +97,7 @@ final class GeneratorTest extends \Tester\TestCase {
       $actual = "{$this->generator->output}/$actual";
       $expected = __DIR__ . "/$expected";
       Assert::true(file_exists($actual));
-      Assert::matchFile($expected, file_get_contents($actual));
+      Assert::matchFile($expected, (string) file_get_contents($actual));
     }
     Assert::true(file_exists("{$this->generator->output}/style.css"));
     Assert::true(file_exists("{$this->generator->output}/script.js"));
