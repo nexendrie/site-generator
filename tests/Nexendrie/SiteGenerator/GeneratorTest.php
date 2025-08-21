@@ -10,9 +10,8 @@ require __DIR__ . "/../../bootstrap.php";
 
 final class GeneratorTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
-  
-  /** @var Generator */
-  protected $generator;
+
+  protected Generator $generator;
   
   protected function setUp(): void {
     $this->generator = $this->getService(Generator::class); // @phpstan-ignore assign.propertyType
