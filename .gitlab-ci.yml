@@ -11,6 +11,8 @@ stages:
   cache:
     paths:
       - vendor/
+  rules:
+    - if: $CI_COMMIT_BRANCH
 
 test:php8.1:
   <<: *test_job
