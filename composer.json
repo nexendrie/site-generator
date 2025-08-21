@@ -14,8 +14,6 @@
         }
     ],
     "support": {
-        "source": "https://gitlab.com/nexendrie/site-generator/",
-        "issues": "https://gitlab.com/nexendrie/site-generator/issues",
         "docs": "https://nexendrie.gitlab.io/site-generator"
     },
     "require": {
