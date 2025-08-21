@@ -10,12 +10,11 @@ namespace Nexendrie\SiteGenerator;
  * @internal
  */
 final class MarkdownParser extends \xenocrat\markdown\GithubMarkdown {
-  /** @var bool */
-  public $html5 = true;
-  /** @var bool */
-  public $keepListStartNumber = true;
-  /** @var bool */
-  public $enableNewlines = true;
+  public function __construct() {
+    $this->html5 = true;
+    $this->keepListStartNumber = true;
+    $this->enableNewlines = true;
+  }
 
   public function parse($text): string {
     $markup = parent::parse($text);
