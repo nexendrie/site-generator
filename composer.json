@@ -27,8 +27,7 @@
         "symfony/options-resolver": "^6.0 || ^7.0"
     },
     "require-dev": {
-        "nexendrie/code-quality": "dev-master",
-        "phpstan/phpstan-deprecation-rules": "^2.0"
+        "nexendrie/code-quality": "dev-master"
     },
     "autoload": {
         "psr-4": {
