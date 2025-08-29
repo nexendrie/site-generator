@@ -247,7 +247,7 @@ final class Generator
             foreach ($this->filesToProcess as $file) {
                 if ($target === $file->getRealPath() && Strings::endsWith($target, ".md")) {
                     $needsUpdate = true;
-                    continue;
+                    break;
                 }
             }
             if (!$needsUpdate) {
