@@ -17,13 +17,4 @@ final class MarkdownParser extends \xenocrat\markdown\GithubMarkdown
         $this->keepListStartNumber = true;
         $this->enableNewlines = true;
     }
-
-    public function parse($text): string
-    {
-        $markup = parent::parse($text);
-        if (substr($markup, -1) === PHP_EOL) {
-            $markup = substr($markup, 0, -1);
-        }
-        return $markup;
-    }
 }
