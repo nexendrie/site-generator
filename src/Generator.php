@@ -7,8 +7,6 @@ use Nette\Utils\Finder;
 use Nette\Neon\Neon;
 use Nette\Utils\FileSystem;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Nette\Utils\Validators;
-use Nette\Utils\Strings;
 
 /**
  * Generator
@@ -139,15 +137,10 @@ final class Generator
             "styles" => [],
             "scripts" => [],
         ]);
-        $isArrayOfStrings = function (array $value): bool {
-            return Validators::everyIs($value, "string");
-        };
         $resolver->setAllowedTypes("title", "string");
         $resolver->setAllowedTypes("htmlLang", "string");
-        $resolver->setAllowedTypes("styles", "array");
-        $resolver->setAllowedValues("styles", $isArrayOfStrings);
-        $resolver->setAllowedTypes("scripts", "array");
-        $resolver->setAllowedValues("scripts", $isArrayOfStrings);
+        $resolver->setAllowedTypes("styles", "string[]");
+        $resolver->setAllowedTypes("scripts", "string[]");
         return $resolver;
     }
 
@@ -245,7 +238,7 @@ final class Generator
             $target = $link->getAttribute("href");
             $target = dirname($filename) . "/" . $target;
             foreach ($this->filesToProcess as $file) {
-                if ($target === $file->getRealPath() && Strings::endsWith($target, ".md")) {
+                if ($target === $file->getRealPath() && str_ends_with($target, ".md")) {
                     $needsUpdate = true;
                     break;
                 }
