@@ -177,7 +177,7 @@ final class Generator
         if (strlen($meta["title"]) === 0) {
             unset($meta["title"]);
             $html = str_replace("
-  <title>%%title%%</title>", "", $html);
+    <title>%%title%%</title>", "", $html);
         }
     }
 
@@ -195,14 +195,14 @@ final class Generator
         if (count($meta["styles"]) === 0) {
             unset($meta["styles"]);
             $html = str_replace("
-  %%styles%%", "", $html);
+    %%styles%%", "", $html);
             return;
         }
         array_walk($meta["styles"], function (&$value) use ($basePath): void {
             $this->addAsset("$basePath/$value");
             $value = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$value\">";
         });
-        $meta["styles"] = implode("\n  ", $meta["styles"]);
+        $meta["styles"] = implode("\n    ", $meta["styles"]);
     }
 
     protected function normalizeScripts(array &$meta, string &$html, string $filename): void
@@ -212,14 +212,14 @@ final class Generator
         if (count($meta["scripts"]) === 0) {
             unset($meta["scripts"]);
             $html = str_replace("
-  %%scripts%%", "", $html);
+    %%scripts%%", "", $html);
             return;
         }
         array_walk($meta["scripts"], function (&$value) use ($basePath): void {
             $this->addAsset("$basePath/$value");
             $value = "<script type=\"text/javascript\" src=\"$value\"></script>";
         });
-        $meta["scripts"] = implode("\n  ", $meta["scripts"]);
+        $meta["scripts"] = implode("\n    ", $meta["scripts"]);
     }
 
     protected function updateLinks(array &$meta, string &$html, string $filename): void
