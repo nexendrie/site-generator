@@ -1,4 +1,4 @@
-Version 0.9.0-dev
+Version 0.9.0
 - use dark mode in generated pages if requested by browser
 
 Version 0.8.0
