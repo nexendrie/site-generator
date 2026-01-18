@@ -1,25 +1,25 @@
 name: Tests
 
 on:
-  push:
-    branches:
-      - '*'
+    push:
+        branches:
+            - '*'
 
 jobs:
-  tests:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php:
-          - '8.1'
-          - '8.2'
-          - '8.3'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer, phing
-          coverage: pcov
-      - run: composer update --prefer-dist --no-progress --no-interaction
-      - run: phing test
+    tests:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php:
+                    - '8.1'
+                    - '8.2'
+                    - '8.3'
+        steps:
+            -   uses: actions/checkout@v4
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    tools: composer, phing
+                    coverage: pcov
+            -   run: composer update --prefer-dist --no-progress --no-interaction
+            -   run: phing test

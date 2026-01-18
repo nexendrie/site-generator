@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="Nexendrie Site Generator" basedir="." default="test">
-  <import file="vendor/nexendrie/code-quality/build.xml"/>
-  <target name="test" depends="lint,cs,phpstan,tests"/>
-  <target name="documentation">
-    <exec executable="bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
-      <arg value="--source=docs"/>
-      <arg value="--output=public"/>
-    </exec>
-  </target>
+    <import file="vendor/nexendrie/code-quality/build.xml"/>
+    <target name="test" depends="lint,cs,phpstan,tests"/>
+    <target name="documentation">
+        <exec executable="bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="--source=docs"/>
+            <arg value="--output=public"/>
+        </exec>
+    </target>
 </project>
