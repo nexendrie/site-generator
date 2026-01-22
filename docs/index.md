@@ -7,7 +7,7 @@ Links
 =====
 
 Primary repository: https://gitlab.com/nexendrie/site-generator
-Github repository: https://github.com/nexendrie/site-generator
+GitHub repository: https://github.com/nexendrie/site-generator
 Packagist: https://packagist.org/packages/nexendrie/site-generator
 
 Installation
