@@ -10,13 +10,11 @@ require __DIR__ . "/../../bootstrap.php";
 
 final class GeneratorTest extends \Tester\TestCase
 {
-    use \Testbench\TCompiledContainer;
-
     protected Generator $generator;
 
     protected function setUp(): void
     {
-        $this->generator = $this->getService(Generator::class); // @phpstan-ignore assign.propertyType
+        $this->generator = new Generator(__DIR__ . "/../../..", __DIR__ . "/../../../public");
     }
 
     public function testGetSource(): void
@@ -116,6 +114,7 @@ final class GeneratorTest extends \Tester\TestCase
 
     public function testGetFilesToProcess(): void
     {
+        $this->generator->source = (string) realpath(dirname(findVendorDirectory()) . "/tests/sources");
         $filesToProcess = $this->generator->filesToProcess;
         Assert::type(Finder::class, $filesToProcess);
         Assert::same(2, iterator_count($filesToProcess->getIterator()));
