@@ -7,6 +7,7 @@ use Nette\Utils\Finder;
 use Nette\Neon\Neon;
 use Nette\Utils\FileSystem;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use xenocrat\markdown\GithubMarkdown;
 
 /**
  * Generator
@@ -261,7 +262,11 @@ final class Generator
 
     protected function createMarkdownParser(): \xenocrat\markdown\Markdown
     {
-        return new MarkdownParser();
+        $parser = new GithubMarkdown();
+        $parser->html5 = true;
+        $parser->keepListStartNumber = true;
+        $parser->enableNewlines = true;
+        return $parser;
     }
 
     protected function createHtml(string $filename): string
