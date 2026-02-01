@@ -52,15 +52,15 @@ final class Generator
         $this->setSource($source);
         FileSystem::createDir($output);
         $this->setOutput($output);
-        $this->onBeforeGenerate[] = [$this, "getFilesToProcess"];
-        $this->onBeforeGenerate[] = [$this, "clearOutputFolder"];
-        $this->onCreatePage[] = [$this, "processImages"];
-        $this->onAfterGenerate[] = [$this, "copyAssets"];
-        $this->addMetaNormalizer([$this, "normalizeTitle"]);
-        $this->addMetaNormalizer([$this, "normalizeStyles"]);
-        $this->addMetaNormalizer([$this, "normalizeScripts"]);
-        $this->addMetaNormalizer([$this, "updateLinks"]);
-        $this->addMetaNormalizer([$this, "addHtmlLanguage"]);
+        $this->onBeforeGenerate[] = $this->getFilesToProcess(...);
+        $this->onBeforeGenerate[] = $this->clearOutputFolder(...);
+        $this->onCreatePage[] = $this->processImages(...);
+        $this->onAfterGenerate[] = $this->copyAssets(...);
+        $this->addMetaNormalizer($this->normalizeTitle(...));
+        $this->addMetaNormalizer($this->normalizeStyles(...));
+        $this->addMetaNormalizer($this->normalizeScripts(...));
+        $this->addMetaNormalizer($this->updateLinks(...));
+        $this->addMetaNormalizer($this->addHtmlLanguage(...));
     }
 
     public function addMetaNormalizer(callable $callback): void
