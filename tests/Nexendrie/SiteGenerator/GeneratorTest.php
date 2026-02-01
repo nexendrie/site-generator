@@ -21,7 +21,7 @@ final class GeneratorTest extends \Tester\TestCase
     {
         $source = $this->generator->source;
         Assert::type("string", $source);
-        $expected = realpath(dirname(findVendorDirectory()));
+        $expected = realpath(__DIR__ . "/../../..");
         Assert::same($expected, $source);
     }
 
@@ -29,7 +29,7 @@ final class GeneratorTest extends \Tester\TestCase
     {
         $output = $this->generator->output;
         Assert::type("string", $output);
-        $expected = realpath(dirname(findVendorDirectory()) . "/public");
+        $expected = realpath(__DIR__ . "/../../../public");
         Assert::same($expected, $output);
     }
 
@@ -52,7 +52,7 @@ final class GeneratorTest extends \Tester\TestCase
     protected function prepareSources(): void
     {
         $files = Finder::findFiles("*.md")
-            ->from(dirname(findVendorDirectory()) . "/tests/sources");
+            ->from(__DIR__ . "/../../../tests/sources");
         $source = $this->generator->source;
         /** @var \SplFileInfo $file */
         foreach ($files as $file) {
@@ -63,7 +63,7 @@ final class GeneratorTest extends \Tester\TestCase
     protected function cleanSources(): void
     {
         $files = Finder::findFiles("*.md")
-            ->from(dirname(findVendorDirectory()) . "/tests/sources");
+            ->from(__DIR__ . "/../../../tests/sources");
         $source = $this->generator->source;
         /** @var \SplFileInfo $file */
         foreach ($files as $file) {
@@ -89,8 +89,8 @@ final class GeneratorTest extends \Tester\TestCase
 
     public function testGenerateWithCustomFolders(): void
     {
-        $source = (string) realpath(dirname(findVendorDirectory()) . "/tests/sources");
-        $output = (string) realpath(dirname(findVendorDirectory()) . "/public");
+        $source = (string) realpath(__DIR__ . "/../../../tests/sources");
+        $output = (string) realpath(__DIR__ . "/../../../public");
         $this->generator->source = $source;
         Assert::same($source, $this->generator->source);
         $this->generator->output = $output;
@@ -114,7 +114,7 @@ final class GeneratorTest extends \Tester\TestCase
 
     public function testGetFilesToProcess(): void
     {
-        $this->generator->source = (string) realpath(dirname(findVendorDirectory()) . "/tests/sources");
+        $this->generator->source = (string) realpath(__DIR__ . "/../../../tests/sources");
         $filesToProcess = $this->generator->filesToProcess;
         Assert::type(Finder::class, $filesToProcess);
         Assert::same(2, iterator_count($filesToProcess->getIterator()));
