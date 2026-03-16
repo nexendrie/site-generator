@@ -1,5 +1,6 @@
 Version 0.10.0-dev
 - raised minimal version of PHP to 8.3
+- allowed symfony/options-resolver 8
 
 Version 0.9.0
 - use dark mode in generated pages if requested by browser

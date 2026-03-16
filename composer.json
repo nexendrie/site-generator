@@ -23,7 +23,7 @@
         "nette/neon": "^3.4.1",
         "nette/utils": "^4.0",
         "nette/command-line": "^1.7",
-        "symfony/options-resolver": "^6.0 || ^7.0"
+        "symfony/options-resolver": "^6.0 || ^7.0 || ^8.0"
     },
     "require-dev": {
         "nexendrie/code-quality": "dev-mytester"
