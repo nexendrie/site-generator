@@ -20,14 +20,13 @@
         "php": ">=8.3.0",
         "ext-dom": "*",
         "xenocrat/chyrp-markdown": "^4.0",
-        "nette/finder": "^2.6",
         "nette/neon": "^3.4.1",
-        "nette/utils": "^3.2.10",
+        "nette/utils": "^4.0",
         "nette/command-line": "^1.7",
         "symfony/options-resolver": "^6.0 || ^7.0"
     },
     "require-dev": {
-        "nexendrie/code-quality": "dev-master"
+        "nexendrie/code-quality": "dev-mytester"
     },
     "autoload": {
         "psr-4": {

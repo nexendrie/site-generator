@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
+use Nette\Utils\FileInfo;
 use Nette\Utils\Finder;
 use Nette\Neon\Neon;
 use Nette\Utils\FileSystem;
@@ -15,7 +16,7 @@ use xenocrat\markdown\GithubMarkdown;
  * @author Jakub Konečný
  * @property string $source
  * @property string $output
- * @property-read Finder|\SplFileInfo[] $filesToProcess
+ * @property-read Finder|FileInfo[] $filesToProcess
  * @property string[] $ignoredFiles
  * @property string[] $ignoredFolders
  * @method void onBeforeGenerate()
@@ -27,15 +28,15 @@ final class Generator
     use \Nette\SmartObject;
 
     private string $templateFile = __DIR__ . "/template.html";
-    /** @var string[] */
+    /** @var list<string> */
     private array $ignoredFiles = [];
-    /** @var string[] */
+    /** @var list<string> */
     private array $ignoredFolders = [
         "vendor", ".git", "tests",
     ];
     private string $source;
     private string $output;
-    /** @var Finder|\SplFileInfo[] */
+    /** @var Finder|FileInfo[] */
     private $filesToProcess;
     /** @var string[] */
     private array $assets = [];
@@ -279,14 +280,14 @@ final class Generator
     }
 
     /**
-     * @return Finder|\SplFileInfo[]
+     * @return Finder|FileInfo[]
      */
     protected function getFilesToProcess(): Finder
     {
         $this->filesToProcess = Finder::findFiles("*.md")
-            ->exclude(...$this->ignoredFiles)
+            ->exclude($this->ignoredFiles)
             ->from($this->source)
-            ->exclude(...$this->ignoredFolders);
+            ->exclude($this->ignoredFolders);
         return $this->filesToProcess;
     }
 

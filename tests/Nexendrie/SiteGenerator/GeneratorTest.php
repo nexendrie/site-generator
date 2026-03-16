@@ -3,16 +3,13 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
-use Tester\Assert;
 use Nette\Utils\Finder;
 
-require __DIR__ . "/../../bootstrap.php";
-
-final class GeneratorTest extends \Tester\TestCase
+final class GeneratorTest extends \MyTester\TestCase
 {
     protected Generator $generator;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         $this->generator = new Generator(__DIR__ . "/../../..", __DIR__ . "/../../../public");
     }
@@ -20,24 +17,24 @@ final class GeneratorTest extends \Tester\TestCase
     public function testGetSource(): void
     {
         $source = $this->generator->source;
-        Assert::type("string", $source);
+        $this->assertType("string", $source);
         $expected = realpath(__DIR__ . "/../../..");
-        Assert::same($expected, $source);
+        $this->assertSame($expected, $source);
     }
 
     public function testGetOutput(): void
     {
         $output = $this->generator->output;
-        Assert::type("string", $output);
+        $this->assertType("string", $output);
         $expected = realpath(__DIR__ . "/../../../public");
-        Assert::same($expected, $output);
+        $this->assertSame($expected, $output);
     }
 
     public function testIgnoredFiles(): void
     {
         $originalValue = $this->generator->ignoredFiles;
         $this->generator->ignoredFiles = [];
-        Assert::count(0, $this->generator->ignoredFiles);
+        $this->assertCount(0, $this->generator->ignoredFiles);
         $this->generator->ignoredFiles = $originalValue;
     }
 
@@ -45,7 +42,7 @@ final class GeneratorTest extends \Tester\TestCase
     {
         $originalValue = $this->generator->ignoredFolders;
         $this->generator->ignoredFolders = [];
-        Assert::count(0, $this->generator->ignoredFolders);
+        $this->assertCount(0, $this->generator->ignoredFolders);
         $this->generator->ignoredFolders = $originalValue;
     }
 
@@ -54,7 +51,6 @@ final class GeneratorTest extends \Tester\TestCase
         $files = Finder::findFiles("*.md")
             ->from(__DIR__ . "/../../../tests/sources");
         $source = $this->generator->source;
-        /** @var \SplFileInfo $file */
         foreach ($files as $file) {
             copy($file->getRealPath(), $source . "/" . $file->getBasename());
         }
@@ -65,7 +61,6 @@ final class GeneratorTest extends \Tester\TestCase
         $files = Finder::findFiles("*.md")
             ->from(__DIR__ . "/../../../tests/sources");
         $source = $this->generator->source;
-        /** @var \SplFileInfo $file */
         foreach ($files as $file) {
             @unlink($source . "/" . $file->getBasename());
         }
@@ -81,8 +76,8 @@ final class GeneratorTest extends \Tester\TestCase
         foreach ($files as $actual => $expected) {
             $actual = "{$this->generator->output}/$actual";
             $expected = __DIR__ . "/$expected";
-            Assert::true(file_exists($actual));
-            Assert::matchFile($expected, (string) file_get_contents($actual));
+            $this->assertTrue(file_exists($actual));
+            $this->assertSame((string) file_get_contents($expected), (string) file_get_contents($actual));
         }
         $this->cleanSources();
     }
@@ -92,9 +87,9 @@ final class GeneratorTest extends \Tester\TestCase
         $source = (string) realpath(__DIR__ . "/../../../tests/sources");
         $output = (string) realpath(__DIR__ . "/../../../public");
         $this->generator->source = $source;
-        Assert::same($source, $this->generator->source);
+        $this->assertSame($source, $this->generator->source);
         $this->generator->output = $output;
-        Assert::same($output, $this->generator->output);
+        $this->assertSame($output, $this->generator->output);
         $this->generator->generate();
         $files = [
             "index.html" => "pageExpected.html",
@@ -103,23 +98,20 @@ final class GeneratorTest extends \Tester\TestCase
         foreach ($files as $actual => $expected) {
             $actual = "{$this->generator->output}/$actual";
             $expected = __DIR__ . "/$expected";
-            Assert::true(file_exists($actual));
-            Assert::matchFile($expected, (string) file_get_contents($actual));
+            $this->assertTrue(file_exists($actual));
+            $this->assertSame((string) file_get_contents($expected), (string) file_get_contents($actual));
         }
-        Assert::true(file_exists("{$this->generator->output}/style.css"));
-        Assert::true(file_exists("{$this->generator->output}/script.js"));
-        Assert::true(file_exists("{$this->generator->output}/blank.jpg"));
-        Assert::false(file_exists("{$this->generator->output}/nonexisting.png"));
+        $this->assertTrue(file_exists("{$this->generator->output}/style.css"));
+        $this->assertTrue(file_exists("{$this->generator->output}/script.js"));
+        $this->assertTrue(file_exists("{$this->generator->output}/blank.jpg"));
+        $this->assertFalse(file_exists("{$this->generator->output}/nonexisting.png"));
     }
 
     public function testGetFilesToProcess(): void
     {
         $this->generator->source = (string) realpath(__DIR__ . "/../../../tests/sources");
         $filesToProcess = $this->generator->filesToProcess;
-        Assert::type(Finder::class, $filesToProcess);
-        Assert::same(2, iterator_count($filesToProcess->getIterator()));
+        $this->assertType(Finder::class, $filesToProcess);
+        $this->assertCount(2, $filesToProcess->collect());
     }
 }
-
-$test = new GeneratorTest();
-$test->run();
