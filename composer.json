@@ -1,6 +1,7 @@
 {
     "name": "nexendrie/site-generator",
     "description": "Static site generator which turns Markdown into HTML",
+    "type": "project",
     "keywords": [
         "static", "site", "website", "generator", "markdown", "html"
     ],
