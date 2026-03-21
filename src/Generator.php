@@ -17,8 +17,8 @@ use xenocrat\markdown\GithubMarkdown;
  * @property string $source
  * @property string $output
  * @property-read Finder|FileInfo[] $filesToProcess
- * @property string[] $ignoredFiles
- * @property string[] $ignoredFolders
+ * @property list<string> $ignoredFiles
+ * @property list<string> $ignoredFolders
  * @method void onBeforeGenerate()
  * @method void onCreatePage(string $html, Generator $generator, string $filename)
  * @method void onAfterGenerate()
@@ -38,7 +38,7 @@ final class Generator
     private string $output;
     /** @var Finder|FileInfo[] */
     private $filesToProcess;
-    /** @var string[] */
+    /** @var list<string> */
     private array $assets = [];
     /** @var callable[] */
     private array $metaNormalizers = [];
@@ -93,7 +93,7 @@ final class Generator
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     protected function getIgnoredFiles(): array
     {
@@ -101,7 +101,7 @@ final class Generator
     }
 
     /**
-     * @param string[] $ignoredFiles
+     * @param list<string> $ignoredFiles
      */
     protected function setIgnoredFiles(array $ignoredFiles): void
     {
@@ -112,7 +112,7 @@ final class Generator
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     protected function getIgnoredFolders(): array
     {
@@ -120,7 +120,7 @@ final class Generator
     }
 
     /**
-     * @param string[] $ignoredFolders
+     * @param list<string> $ignoredFolders
      */
     protected function setIgnoredFolders(array $ignoredFolders): void
     {
