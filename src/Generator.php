@@ -19,9 +19,6 @@ use xenocrat\markdown\GithubMarkdown;
  * @property-read Finder|FileInfo[] $filesToProcess
  * @property list<string> $ignoredFiles
  * @property list<string> $ignoredFolders
- * @method void onBeforeGenerate()
- * @method void onCreatePage(string $html, Generator $generator, string $filename)
- * @method void onAfterGenerate()
  */
 final class Generator
 {
@@ -340,5 +337,26 @@ final class Generator
             $this->onCreatePage($html, $this, $file->getRealPath());
         }
         $this->onAfterGenerate();
+    }
+
+    public function onBeforeGenerate(): void
+    {
+        foreach ($this->onBeforeGenerate as $callback) {
+            $callback();
+        }
+    }
+
+    public function onCreatePage(string $html, Generator $generator, string $filename): void
+    {
+        foreach ($this->onCreatePage as $callback) {
+            $callback($html, $generator, $filename);
+        }
+    }
+
+    public function onAfterGenerate(): void
+    {
+        foreach ($this->onAfterGenerate as $callback) {
+            $callback();
+        }
     }
 }
