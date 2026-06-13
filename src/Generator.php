@@ -34,7 +34,7 @@ final class Generator
     private string $source;
     private string $output;
     /** @var Finder|FileInfo[] */
-    private $filesToProcess;
+    private Finder $filesToProcess;
     /** @var list<string> */
     private array $assets = [];
     /** @var callable[] */
