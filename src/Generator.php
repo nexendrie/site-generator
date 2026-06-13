@@ -74,9 +74,7 @@ final class Generator
 
     protected function setSource(string $source): void
     {
-        if (is_dir($source)) {
-            $this->source = (string) realpath($source);
-        }
+        $this->source = (string) realpath($source);
     }
 
     protected function getOutput(): string
