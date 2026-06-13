@@ -13,15 +13,18 @@ Packagist: https://packagist.org/packages/nexendrie/site-generator
 Installation
 ============
 
-The best way to install it is via Composer. Just add nexendrie/site-generator to your dependencies.
+The best way to install it is via Composer. Just run
+```bash
+composer create-project --no-dev nexendrie/site-generator
+```
 
 Usage
 =====
 
-Just run **./vendor/bin/generate-site**. The script will go through all .md files in your project's root folder (and all its subfolders) and create html pages from them and place them under public folder. Both sources and output folders can be changed:
+Just run **./site-generator/bin/generate-site**. The script will go through all .md files in your project's root folder (and all its subfolders) and create html pages from them and place them under public folder. Both sources and output folders can be changed:
 
 ```bash
-./vendor/bin/generate-site --source=doc --output=public
+./site-generator/bin/generate-site --source=doc --output=public
 ```
 
 Alternative usage

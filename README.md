@@ -7,7 +7,7 @@ Static site generator which turns Markdown into HTML.
 
 Installation
 ------------
-The best way to install it is via Composer. Just add **nexendrie/site-generator** to your dependencies.
+The best way to install it is via Composer. Just run ```composer create-project --no-dev nexendrie/site-generator```.
 
 Documentation
 -------------
