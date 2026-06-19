@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
+use MyTester\Attributes\BeforeTest;
 use Nette\Utils\Finder;
 
 final class GeneratorTest extends \MyTester\TestCase
 {
     protected Generator $generator;
 
+    #[BeforeTest]
     public function setUp(): void
     {
         $this->generator = new Generator(__DIR__ . "/../../..", __DIR__ . "/../../../public");

@@ -2,6 +2,25 @@
 <project name="Nexendrie Site Generator" basedir="." default="test">
     <import file="vendor/nexendrie/code-quality/build.xml"/>
     <target name="test" depends="lint,cs,phpstan,tests"/>
+    <target name="tests" description="Unit tests">
+        <if>
+            <isset property="env.REPORTS"/>
+            <then>
+                <exec executable="vendor/bin/mytester" logoutput="true" passthru="true" checkreturn="true">
+                    <arg value="--colors"/>
+                    <arg value="--results"/>
+                    <arg value="junit"/>
+                    <arg value="--coverage"/>
+                    <arg value="cobertura"/>
+                </exec>
+            </then>
+            <else>
+                <exec executable="vendor/bin/mytester" logoutput="true" passthru="true" checkreturn="true">
+                    <arg value="--colors"/>
+                </exec>
+            </else>
+        </if>
+    </target>
     <target name="documentation">
         <exec executable="bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
             <arg value="--source=docs"/>
