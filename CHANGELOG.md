@@ -2,6 +2,8 @@ Version 0.10.0-dev
 - raised minimal version of PHP to 8.4
 - dropped support for nette/utils 3 (and nette/finder)
 - allowed symfony/options-resolver 8
+- added support for PSR-14 event dispatcher
+- deprecated Nette style events
 
 Version 0.9.0
 - use dark mode in generated pages if requested by browser

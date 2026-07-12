@@ -20,6 +20,7 @@
     "require": {
         "php": ">=8.4.0",
         "ext-dom": "*",
+        "psr/event-dispatcher": "^1.0",
         "xenocrat/chyrp-markdown": "^4.0",
         "nette/neon": "^3.4.1",
         "nette/utils": "^4.0",
@@ -27,7 +28,8 @@
         "symfony/options-resolver": "^6.0 || ^7.0 || ^8.0"
     },
     "require-dev": {
-        "nexendrie/code-quality": "dev-mytester"
+        "nexendrie/code-quality": "dev-mytester",
+        "psr/log": "^3.0"
     },
     "autoload": {
         "psr-4": {

@@ -3,17 +3,30 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
+use Konecnyjakub\EventDispatcher\DebugEventDispatcher;
+use Konecnyjakub\EventDispatcher\DummyEventDispatcher;
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\IgnoreDeprecations;
 use Nette\Utils\Finder;
+use Nexendrie\SiteGenerator\Events\AfterGenerate;
+use Nexendrie\SiteGenerator\Events\BeforeGenerate;
+use Nexendrie\SiteGenerator\Events\PageGenerated;
+use Psr\Log\NullLogger;
 
 final class GeneratorTest extends \MyTester\TestCase
 {
-    protected Generator $generator;
+    private Generator $generator;
+    private DebugEventDispatcher $debugEventDispatcher;
 
     #[BeforeTest]
     public function setUp(): void
     {
-        $this->generator = new Generator(__DIR__ . "/../../..", __DIR__ . "/../../../public");
+        $this->debugEventDispatcher = new DebugEventDispatcher(new DummyEventDispatcher(), new NullLogger());
+        $this->generator = new Generator(
+            __DIR__ . "/../../..",
+            __DIR__ . "/../../../public",
+            $this->debugEventDispatcher
+        );
     }
 
     public function testGetSource(): void
@@ -68,6 +81,7 @@ final class GeneratorTest extends \MyTester\TestCase
         }
     }
 
+    #[IgnoreDeprecations]
     public function testGenerate(): void
     {
         $this->prepareSources();
@@ -82,8 +96,15 @@ final class GeneratorTest extends \MyTester\TestCase
             $this->assertSame((string) file_get_contents($expected), (string) file_get_contents($actual));
         }
         $this->cleanSources();
+        $this->assertTrue($this->debugEventDispatcher->dispatched(BeforeGenerate::class));
+        $this->assertFalse($this->debugEventDispatcher->dispatched(BeforeGenerate::class, 2));
+        $this->assertTrue($this->debugEventDispatcher->dispatched(AfterGenerate::class));
+        $this->assertFalse($this->debugEventDispatcher->dispatched(AfterGenerate::class, 2));
+        $this->assertTrue($this->debugEventDispatcher->dispatched(PageGenerated::class, 7));
+        $this->assertFalse($this->debugEventDispatcher->dispatched(PageGenerated::class, 8));
     }
 
+    #[IgnoreDeprecations]
     public function testGenerateWithCustomFolders(): void
     {
         $source = (string) realpath(__DIR__ . "/../../../tests/sources");

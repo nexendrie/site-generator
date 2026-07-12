@@ -7,6 +7,10 @@ use Nette\Utils\FileInfo;
 use Nette\Utils\Finder;
 use Nette\Neon\Neon;
 use Nette\Utils\FileSystem;
+use Nexendrie\SiteGenerator\Events\AfterGenerate;
+use Nexendrie\SiteGenerator\Events\BeforeGenerate;
+use Nexendrie\SiteGenerator\Events\PageGenerated;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use xenocrat\markdown\GithubMarkdown;
 
@@ -39,22 +43,34 @@ final class Generator
     private array $assets = [];
     /** @var callable[] */
     private array $metaNormalizers = [];
-    /** @var callable[] */
+    /**
+     * @var callable[]
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public array $onBeforeGenerate = [];
-    /** @var callable[] */
+    /**
+     * @var callable[]
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public array $onCreatePage = [];
-    /** @var callable[] */
+    /**
+     * @var callable[]
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public array $onAfterGenerate = [];
 
-    public function __construct(string $source, string $output)
-    {
+    public function __construct(
+        string $source,
+        string $output,
+        private readonly ?EventDispatcherInterface $eventDispatcher = null
+    ) {
         $this->setSource($source);
         FileSystem::createDir($output);
         $this->setOutput($output);
-        $this->onBeforeGenerate[] = $this->getFilesToProcess(...);
-        $this->onBeforeGenerate[] = $this->clearOutputFolder(...);
-        $this->onCreatePage[] = $this->processImages(...);
-        $this->onAfterGenerate[] = $this->copyAssets(...);
+        $this->onBeforeGenerate[] = $this->getFilesToProcess(...); // @phpstan-ignore property.deprecated
+        $this->onBeforeGenerate[] = $this->clearOutputFolder(...); // @phpstan-ignore property.deprecated
+        $this->onCreatePage[] = $this->processImages(...); // @phpstan-ignore property.deprecated
+        $this->onAfterGenerate[] = $this->copyAssets(...); // @phpstan-ignore property.deprecated
         $this->addMetaNormalizer($this->normalizeTitle(...));
         $this->addMetaNormalizer($this->normalizeStyles(...));
         $this->addMetaNormalizer($this->normalizeScripts(...));
@@ -320,7 +336,8 @@ final class Generator
      */
     public function generate(): void
     {
-        $this->onBeforeGenerate();
+        $this->onBeforeGenerate(); // @phpstan-ignore method.deprecated
+        $this->eventDispatcher?->dispatch(new BeforeGenerate());
         foreach ($this->filesToProcess as $file) {
             $path = str_replace($this->source, "", dirname($file->getRealPath()));
             $html = $this->createHtml($file->getRealPath());
@@ -332,11 +349,14 @@ final class Generator
             $filename = "$this->output$path/$basename";
             FileSystem::write($filename, $html);
             echo "Created $path/$basename\n";
-            $this->onCreatePage($html, $this, $file->getRealPath());
+            $this->onCreatePage($html, $this, $file->getRealPath()); // @phpstan-ignore method.deprecated
+            $this->eventDispatcher?->dispatch(new PageGenerated($html, $this, $file->getRealPath()));
         }
-        $this->onAfterGenerate();
+        $this->onAfterGenerate(); // @phpstan-ignore method.deprecated
+        $this->eventDispatcher?->dispatch(new AfterGenerate());
     }
 
+    #[\Deprecated("use a PSR-14 event dispatcher")]
     public function onBeforeGenerate(): void
     {
         foreach ($this->onBeforeGenerate as $callback) {
@@ -344,6 +364,7 @@ final class Generator
         }
     }
 
+    #[\Deprecated("use a PSR-14 event dispatcher")]
     public function onCreatePage(string $html, Generator $generator, string $filename): void
     {
         foreach ($this->onCreatePage as $callback) {
@@ -351,6 +372,7 @@ final class Generator
         }
     }
 
+    #[\Deprecated("use a PSR-14 event dispatcher")]
     public function onAfterGenerate(): void
     {
         foreach ($this->onAfterGenerate as $callback) {
