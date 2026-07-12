@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\SiteGenerator;
 
+use Dom\HTMLDocument;
 use Nette\Utils\FileInfo;
 use Nette\Utils\Finder;
 use Nette\Neon\Neon;
@@ -237,16 +238,14 @@ final class Generator
 
     protected function updateLinks(array &$meta, string &$html, string $filename): void
     {
-        $dom = new \DOMDocument();
         set_error_handler(function ($errno): bool {
             return $errno === E_WARNING;
         });
-        $dom->loadHTML($html);
+        $dom = HTMLDocument::createFromString($html);
         restore_error_handler();
         $links = $dom->getElementsByTagName("a");
-        /** @var \DOMElement $link */
         foreach ($links as $link) {
-            $oldContent = (string) $dom->saveHTML($link);
+            $oldContent = $dom->saveHtml($link);
             $needsUpdate = false;
             $target = $link->getAttribute("href");
             $target = dirname($filename) . "/" . $target;
@@ -259,8 +258,8 @@ final class Generator
             if (!$needsUpdate) {
                 continue;
             }
-            $link->setAttribute("href", str_replace(".md", ".html", $link->getAttribute("href")));
-            $newContent = (string) $dom->saveHTML($link);
+            $link->setAttribute("href", str_replace(".md", ".html", (string) $link->getAttribute("href")));
+            $newContent = $dom->saveHtml($link);
             $html = str_replace($oldContent, $newContent, $html);
         }
     }
@@ -319,10 +318,8 @@ final class Generator
 
     protected function processImages(string $html, self $generator, string $filename): void
     {
-        $dom = new \DOMDocument();
-        $dom->loadHTML($html);
+        $dom = HTMLDocument::createFromString($html);
         $images = $dom->getElementsByTagName("img");
-        /** @var \DOMElement $image */
         foreach ($images as $image) {
             $path = dirname($filename) . "/" . $image->getAttribute("src");
             if (file_exists($path)) {
