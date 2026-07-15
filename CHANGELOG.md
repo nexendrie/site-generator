@@ -1,4 +1,4 @@
-Version 0.10.0-dev
+Version 0.10.0
 - raised minimal version of PHP to 8.4
 - dropped support for nette/utils 3 (and nette/finder)
 - allowed symfony/options-resolver 8
