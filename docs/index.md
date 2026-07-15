@@ -42,7 +42,6 @@ $source = "./sources";
 $output = "./docs";
 $generator = new Nexendrie\SiteGenerator\Generator($source, $output);
 $generator->generate();
-?>
 ```
 
 Ignoring files and folders
@@ -63,7 +62,6 @@ $generator = new Nexendrie\SiteGenerator\Generator($source, $output);
 $generator->ignoredFiles = ["abc.md"];
 $generator->ignoredFolders = ["abc"];
 $generator->generate();
-?>
 ```
 
 This will ignore in any files in folder abc and files named abc.md.
