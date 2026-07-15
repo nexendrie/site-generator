@@ -3,4 +3,4 @@ includes:
     - vendor/nexendrie/code-quality/phpstan.neon
     - vendor/phpstan/phpstan-deprecation-rules/rules.neon
 parameters:
-    ignoreErrors:
+    ignoreErrors!:

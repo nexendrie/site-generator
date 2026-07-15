@@ -163,6 +163,9 @@ final class Generator
         return str_replace(".md", ".neon", $filename);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function getMeta(string $filename, string &$html): array
     {
         $resolver = $this->createMetaResolver();
@@ -186,6 +189,9 @@ final class Generator
         }
     }
 
+    /**
+     * @param array<string, mixed> $meta
+     */
     protected function normalizeTitle(array &$meta, string &$html, string $filename): void
     {
         if (strlen($meta["title"]) === 0) {
@@ -195,13 +201,20 @@ final class Generator
         }
     }
 
+    /**
+     * @param list<string> $input
+     */
     protected function removeInvalidFiles(array &$input, string $basePath): void
     {
+        // @phpstan-ignore parameterByRef.type
         $input = array_filter($input, function ($value) use ($basePath): bool {
             return file_exists("$basePath/$value");
         });
     }
 
+    /**
+     * @param array<string, mixed> $meta
+     */
     protected function normalizeStyles(array &$meta, string &$html, string $filename): void
     {
         $basePath = dirname($filename);
@@ -219,6 +232,9 @@ final class Generator
         $meta["styles"] = implode("\n    ", $meta["styles"]);
     }
 
+    /**
+     * @param array<string, mixed> $meta
+     */
     protected function normalizeScripts(array &$meta, string &$html, string $filename): void
     {
         $basePath = dirname($filename);
@@ -236,6 +252,9 @@ final class Generator
         $meta["scripts"] = implode("\n    ", $meta["scripts"]);
     }
 
+    /**
+     * @param array<string, mixed> $meta
+     */
     protected function updateLinks(array &$meta, string &$html, string $filename): void
     {
         set_error_handler(function ($errno): bool {
@@ -264,6 +283,9 @@ final class Generator
         }
     }
 
+    /**
+     * @param array<string, mixed> $meta
+     */
     protected function addHtmlLanguage(array &$meta, string &$html, string $filename): void
     {
         if (strlen($meta["htmlLang"]) > 0) {
