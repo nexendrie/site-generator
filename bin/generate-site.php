@@ -27,26 +27,20 @@ function findVendorDirectory(): string
 
 require findVendorDirectory() . "/autoload.php";
 
-$cmd = new Parser("", [
-    "--source" => [
-        Parser::RealPath => true, Parser::Default => findVendorDirectory() . "/../",
-        Parser::Argument => true,
-    ],
-    "--output" => [
-        Parser::Default => findVendorDirectory() . "/../public/",
-        Parser::Argument => true,
-    ],
-    "--ignoreFile" => [
-        Parser::Argument => true,
-        Parser::Optional => true,
-        Parser::Repeatable => true,
-    ],
-    "--ignoreFolder" => [
-        Parser::Argument => true,
-        Parser::Optional => true,
-        Parser::Repeatable => true,
-    ],
-]);
+$cmd = new Parser()
+    ->addOption(
+        "--source",
+        optionalValue: true,
+        fallback: findVendorDirectory() . "/../",
+        normalizer: Parser::normalizeRealPath(...)
+    )
+    ->addOption(
+        "--output",
+        optionalValue: true,
+        fallback: findVendorDirectory() . "/../public/"
+    )
+    ->addOption("--ignoreFile", optionalValue: true, repeatable: true)
+    ->addOption("--ignoreFolder", optionalValue: true, repeatable: true);
 $options = $cmd->parse();
 
 $generator = new Generator($options["--source"], $options["--output"]);
