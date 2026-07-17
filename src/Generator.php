@@ -117,10 +117,7 @@ final class Generator
      */
     protected function setIgnoredFiles(array $ignoredFiles): void
     {
-        $this->ignoredFiles = [];
-        foreach ($ignoredFiles as $ignoredFile) {
-            $this->ignoredFiles[] = (string) $ignoredFile;
-        }
+        $this->ignoredFiles = array_map(strval(...), $ignoredFiles);
     }
 
     /**
@@ -136,10 +133,7 @@ final class Generator
      */
     protected function setIgnoredFolders(array $ignoredFolders): void
     {
-        $this->ignoredFolders = [];
-        foreach ($ignoredFolders as $ignoredFolder) {
-            $this->ignoredFolders[] = (string) $ignoredFolder;
-        }
+        $this->ignoredFolders = array_map(strval(...), $ignoredFolders);
     }
 
     protected function createMetaResolver(): OptionsResolver
