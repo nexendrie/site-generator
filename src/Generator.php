@@ -136,7 +136,7 @@ final class Generator
         $this->ignoredFolders = array_map(strval(...), $ignoredFolders);
     }
 
-    protected function createMetaResolver(): OptionsResolver
+    private function createMetaResolver(): OptionsResolver
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
@@ -152,7 +152,7 @@ final class Generator
         return $resolver;
     }
 
-    protected function getMetafileName(string $filename): string
+    private function getMetafileName(string $filename): string
     {
         return str_replace(".md", ".neon", $filename);
     }
@@ -160,7 +160,7 @@ final class Generator
     /**
      * @return array<string, mixed>
      */
-    protected function getMeta(string $filename, string &$html): array
+    private function getMeta(string $filename, string &$html): array
     {
         $resolver = $this->createMetaResolver();
         $metaFilename = $this->getMetafileName($filename);
@@ -175,7 +175,7 @@ final class Generator
         return $result;
     }
 
-    protected function addAsset(string $asset): void
+    private function addAsset(string $asset): void
     {
         $asset = realpath($asset);
         if (is_string($asset) && !in_array($asset, $this->assets, true)) {
@@ -186,7 +186,7 @@ final class Generator
     /**
      * @param array<string, mixed> $meta
      */
-    protected function normalizeTitle(array &$meta, string &$html, string $filename): void
+    private function normalizeTitle(array &$meta, string &$html, string $filename): void
     {
         if (strlen($meta["title"]) === 0) {
             unset($meta["title"]);
@@ -198,7 +198,7 @@ final class Generator
     /**
      * @param list<string> $input
      */
-    protected function removeInvalidFiles(array &$input, string $basePath): void
+    private function removeInvalidFiles(array &$input, string $basePath): void
     {
         // @phpstan-ignore parameterByRef.type
         $input = array_filter($input, function ($value) use ($basePath): bool {
@@ -209,7 +209,7 @@ final class Generator
     /**
      * @param array<string, mixed> $meta
      */
-    protected function normalizeStyles(array &$meta, string &$html, string $filename): void
+    private function normalizeStyles(array &$meta, string &$html, string $filename): void
     {
         $basePath = dirname($filename);
         $this->removeInvalidFiles($meta["styles"], $basePath);
@@ -229,7 +229,7 @@ final class Generator
     /**
      * @param array<string, mixed> $meta
      */
-    protected function normalizeScripts(array &$meta, string &$html, string $filename): void
+    private function normalizeScripts(array &$meta, string &$html, string $filename): void
     {
         $basePath = dirname($filename);
         $this->removeInvalidFiles($meta["scripts"], $basePath);
@@ -249,7 +249,7 @@ final class Generator
     /**
      * @param array<string, mixed> $meta
      */
-    protected function updateLinks(array &$meta, string &$html, string $filename): void
+    private function updateLinks(array &$meta, string &$html, string $filename): void
     {
         set_error_handler(function ($errno): bool {
             return $errno === E_WARNING;
@@ -280,14 +280,14 @@ final class Generator
     /**
      * @param array<string, mixed> $meta
      */
-    protected function addHtmlLanguage(array &$meta, string &$html, string $filename): void
+    private function addHtmlLanguage(array &$meta, string &$html, string $filename): void
     {
         if (strlen($meta["htmlLang"]) > 0) {
             $html = str_replace("<html>", "<html lang=\"{$meta["htmlLang"]}\">", $html);
         }
     }
 
-    protected function createMarkdownParser(): \xenocrat\markdown\Markdown
+    private function createMarkdownParser(): \xenocrat\markdown\Markdown
     {
         $parser = new GithubMarkdown();
         $parser->html5 = true;
@@ -296,7 +296,7 @@ final class Generator
         return $parser;
     }
 
-    protected function createHtml(string $filename): string
+    private function createHtml(string $filename): string
     {
         $parser = $this->createMarkdownParser();
         $source = $parser->parse((string) file_get_contents($filename));
@@ -317,12 +317,12 @@ final class Generator
         return $this->filesToProcess;
     }
 
-    protected function clearOutputFolder(): void
+    private function clearOutputFolder(): void
     {
         FileSystem::delete($this->output);
     }
 
-    protected function copyAssets(): void
+    private function copyAssets(): void
     {
         foreach ($this->assets as $asset) {
             $path = str_replace($this->source, "", $asset);
@@ -332,7 +332,7 @@ final class Generator
         }
     }
 
-    protected function processImages(string $html, self $generator, string $filename): void
+    private function processImages(string $html, self $generator, string $filename): void
     {
         $dom = HTMLDocument::createFromString($html);
         $images = $dom->getElementsByTagName("img");
